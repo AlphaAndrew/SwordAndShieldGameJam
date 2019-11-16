@@ -8,34 +8,52 @@ public class StatsManager : NetworkBehaviour
     public float redTeamScore;
     public float blueTeamScore;
     public GameObject[] players;
-    // Start is called before the first frame update
+    public bool activeBattle;
+
+    
     void Start()
     {
         if (isServer)
         {
-            FillPlayerList();
-            GetScores();
+            StartCoroutine(FillPlayerList());
+           // StartCoroutine(GetScores());
+           
         }
+    }
+    void Update()
+    {
+        CheckForBattle();
+    }
+    //get all active players
+    public IEnumerator FillPlayerList()
+    {
+        yield return new WaitForEndOfFrame();
+        players = GameObject.FindGameObjectsWithTag("PlayerObject");
+        yield return null;
+    }
 
-    }
-    public void FillPlayerList()
+    //probably shouldnt loop through players every frame so I commented for now
+    //only two players so its not that expensive
+
+  /*  public IEnumerator GetScores()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
-    }
-    public void GetScores()
-    {
+        yield return new WaitForSeconds(.25f);
         foreach (GameObject player in players)
         {
+            var redScore = 0.0f;
+            var blueScore = 0.0f;
             if (player.GetComponent<PlayerControl>().GetTeam() != null)
             {
                 string team = player.GetComponent<PlayerControl>().GetTeam();
+
+                  
                 switch (team)
                 {
                     case "Red":
-                        redTeamScore += player.GetComponent<PlayerControl>().playerScore;
+                        redScore += player.GetComponent<PlayerControl>().playerScore;
                         break;
                     case "Blue":
-                        blueTeamScore += player.GetComponent<PlayerControl>().playerScore;
+                        blueScore += player.GetComponent<PlayerControl>().playerScore;
                         break;
 
                     default:
@@ -44,11 +62,32 @@ public class StatsManager : NetworkBehaviour
 
                 }
             }
+            if(redTeamScore != redScore)
+            {
+                redTeamScore += redScore;
+            }
+            if(blueTeamScore != blueScore)
+            {
+                blueTeamScore += blueScore;
+            }
         }
-    }
-    // Update is called once per frame
-    void Update()
+        yield return null;
+    }*/
+
+    /// <summary>
+    /// Returns whether or not there is an active battle;
+    /// </summary>
+    public void CheckForBattle()
     {
-        
+        if (players.Length == 0)
+        {
+            //if no players are found, there is no active battle
+            activeBattle = false;
+        }
+        else
+        {
+            //if alteast one player is in the scene
+            activeBattle =true;
+        }
     }
 }

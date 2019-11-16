@@ -50,7 +50,7 @@ public class Sword : MonoBehaviour
                         break;
 
                     default:
-                        Debug.Log("Collided with something not in switch statemetn");
+                        Debug.Log("Sword collided with " + other.gameObject.tag + " no action takes place");
                         break;
                 }
             }

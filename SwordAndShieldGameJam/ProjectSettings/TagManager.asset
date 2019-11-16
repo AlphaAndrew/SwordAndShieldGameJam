@@ -9,6 +9,7 @@ TagManager:
   - Shield
   - StatsManager
   - Waypoint
+  - PlayerObject
   layers:
   - Default
   - TransparentFX

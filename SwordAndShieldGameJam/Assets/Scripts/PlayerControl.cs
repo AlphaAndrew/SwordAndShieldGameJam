@@ -38,6 +38,9 @@ public class PlayerControl : NetworkBehaviour
     public bool isBouncing = false;
     public float bounceMultiplier;
 
+    //Coroutine accumulatePoints;
+    //see capture point "Do Battle" 
+
     // Start is called before the first frame update
     void Start()
     {

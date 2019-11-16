@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 143776201}
   m_Layer: 0
   m_Name: StatsManager
-  m_TagString: Untagged
+  m_TagString: StatsManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   redTeamScore: 0
   blueTeamScore: 0
   players: []
+  activeBattle: 0
 --- !u!114 &143776202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,30 +990,85 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5372033181005589117, guid: 5fef408526e25f449911075bff95cf74,
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4.6219
-      objectReference: {fileID: 0}
-    - target: {fileID: 5372033181005589117, guid: 5fef408526e25f449911075bff95cf74,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.1929795
-      objectReference: {fileID: 0}
-    - target: {fileID: 5372033181005589117, guid: 5fef408526e25f449911075bff95cf74,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4.6219
+      propertyPath: m_AssetId.i0
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
-      propertyPath: m_ServerOnly
-      value: 1
+      propertyPath: m_AssetId.i1
+      value: 239
       objectReference: {fileID: 0}
-    - target: {fileID: 5952160437221256171, guid: 5fef408526e25f449911075bff95cf74,
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
-      propertyPath: waypoints.Array.size
-      value: 3
+      propertyPath: m_AssetId.i2
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i3
+      value: 133
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i4
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i5
+      value: 226
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i6
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i7
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i8
+      value: 153
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i9
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i10
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i11
+      value: 91
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i12
+      value: 255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i13
+      value: 149
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i14
+      value: 207
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_AssetId.i15
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 5952160437221256171, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
@@ -1029,27 +1085,12 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[2]
       value: 
       objectReference: {fileID: 918886480}
-    - target: {fileID: 5952160437221256171, guid: 5fef408526e25f449911075bff95cf74,
-        type: 3}
-      propertyPath: isMoving
+    - target: {fileID: 1734021259, guid: 5fef408526e25f449911075bff95cf74, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5952160437221256171, guid: 5fef408526e25f449911075bff95cf74,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2114390488962658849, guid: 5fef408526e25f449911075bff95cf74,
-        type: 3}
-      propertyPath: m_SendInterval
-      value: 0.033333335
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745768491976889865, guid: 5fef408526e25f449911075bff95cf74,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e8a6207c8c7b47a439f0b48004d598cd, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1734021259, guid: 5fef408526e25f449911075bff95cf74, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5fef408526e25f449911075bff95cf74, type: 3}
 --- !u!1001 &1819687488
 PrefabInstance:
@@ -1312,6 +1353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205645550076790039, guid: 8b331d8ec5b75d349b2f8c8844876d10,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerObject
       objectReference: {fileID: 0}
     - target: {fileID: 7216364160005206170, guid: 8b331d8ec5b75d349b2f8c8844876d10,
         type: 3}
