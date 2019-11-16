@@ -20,7 +20,7 @@ public class PlayerControl : NetworkBehaviour
     private float chargeTimer;
     public float chargeLimit;
     public bool isCharging = false;
-
+    public bool hitSomeone = false;
     private Vector3 chargeStartTrans;
     private Vector3 chargeEndTrans;
     private float chargeStartTime;
@@ -81,16 +81,19 @@ public class PlayerControl : NetworkBehaviour
         }        
     }
 
+    //Shield to front of player
     public void ShieldUp()
     {
         shield.transform.SetPositionAndRotation(frontShieldPos.transform.position, frontShieldPos.transform.rotation);
         playerSpeed = playerShieldSpeed;
     }
+    //Shield back down to side of player
     public void ShieldDown()
     {
         shield.transform.SetPositionAndRotation(sideShieldPos.transform.position, sideShieldPos.transform.rotation);
         playerSpeed = playerBaseSpeed;
     }
+    //Charge Attack Variables
     public void ChargePrep()
     {
         chargeStartTrans = player.transform.position;
@@ -99,13 +102,20 @@ public class PlayerControl : NetworkBehaviour
         chargeStartTime = Time.time;
         chargeDistance = Vector3.Distance(player.transform.position, player.transform.position + transform.forward * (chargeMultiplier * chargeTimer));
     }
+
+    //Charge Attack Implementation
     public void ChargeAttack()
     {
         //Attack
-        if (chargeDuration < 1)
+        if (chargeDuration < 1 && !hitSomeone)
         {
             chargeDuration = (Time.time - chargeStartTime) * chargeSpeed / chargeDistance;
             player.transform.position = Vector3.Lerp(chargeStartTrans, chargeEndTrans, chargeDuration);
+        }
+        else if (hitSomeone)
+        {
+            BounceBack();
+            isCharging = false;
         }
         else
         {
@@ -141,7 +151,10 @@ public class PlayerControl : NetworkBehaviour
         player.transform.Rotate(0, -y, 0);
         //Camera.main.transform.Rotate(-x, 0, 0);
     }
+    public void BounceBack()
+    {
 
+    }
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
