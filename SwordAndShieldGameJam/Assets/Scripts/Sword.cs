@@ -21,40 +21,37 @@ public class Sword : NetworkBehaviour
     {
         if (hasAuthority)
         {
-            if (other.gameObject.tag != null)
+            string colliderTag = other.gameObject.tag;
+            switch (colliderTag)
             {
-                string colliderTag = other.gameObject.tag;
-                switch (colliderTag)
-                {
-                    case "Player":
-                        //check if regular or charged attack with bool
-                        if (playerScript.isCharging)
-                        {
-                            playerScript.ApplyDamage(chargedDamage);
-                        }
-                        else //normal attack
-                        {
-                            playerScript.ApplyDamage(normalDamage);
-                        }
+                case "Player":
+                    //check if regular or charged attack with bool
+                    if (playerScript.isCharging)
+                    {
+                        playerScript.ApplyDamage(chargedDamage);
+                    }
+                    else //normal attack
+                    {
+                        playerScript.ApplyDamage(normalDamage);
+                    }
 
-                        break;
+                    break;
 
-                    case "Shield":
-                        // check if regular or charged attack with bool
-                        if (playerScript.isCharging)
-                        {
-                            playerScript.hitSomeone = true;
-                        }
-                        else //normal attack
-                        {
-                            //blocked, nothin happens?
-                        }
-                        break;
+                case "Shield":
+                    // check if regular or charged attack with bool
+                    if (playerScript.isCharging)
+                    {
+                        playerScript.hitSomeone = true;
+                    }
+                    else //normal attack
+                    {
+                        //blocked, nothin happens?
+                    }
+                    break;
 
-                    default:
-                        Debug.Log("Collided with something not in switch statemetn");
-                        break;
-                }
+                default:
+                    Debug.Log("Collided with something not in switch statemetn");
+                    break;
             }
         }
     }

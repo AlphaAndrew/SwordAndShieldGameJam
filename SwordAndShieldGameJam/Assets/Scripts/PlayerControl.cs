@@ -7,7 +7,7 @@ public class PlayerControl : NetworkBehaviour
 {
     public float health;
     private float currentHealth;
-   
+
     private Rigidbody playerRB;
     private GameObject player;
     public GameObject shield;
