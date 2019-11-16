@@ -10,7 +10,12 @@ public class PlayerControl : NetworkBehaviour
 
     private Rigidbody playerRB;
     private GameObject player;
-    public float playerSpeed;
+    public GameObject shield;
+    public GameObject sideShieldPos;
+    public GameObject frontShieldPos;
+    private float playerSpeed;
+    public float playerBaseSpeed;
+    public float playerShieldSpeed;
     public float chargeMultiplier;
     private float chargeTimer;
     public float chargeLimit;
@@ -29,6 +34,7 @@ public class PlayerControl : NetworkBehaviour
     {
         //playerRB = GetComponent<Rigidbody>();
         player = this.gameObject;
+        playerSpeed = playerBaseSpeed;
     }
 
     // Update is called once per frame
@@ -65,14 +71,25 @@ public class PlayerControl : NetworkBehaviour
 
             if (Input.GetMouseButton(1))
             {
-                //Shield
+                //Shield Up
+                ShieldUp();
+            }
+            else if(Input.GetMouseButtonUp(1))
+            {
+                ShieldDown();
             }
         }        
     }
 
-    public void Shield()
+    public void ShieldUp()
     {
-
+        shield.transform.SetPositionAndRotation(frontShieldPos.transform.position, frontShieldPos.transform.rotation);
+        playerSpeed = playerShieldSpeed;
+    }
+    public void ShieldDown()
+    {
+        shield.transform.SetPositionAndRotation(sideShieldPos.transform.position, sideShieldPos.transform.rotation);
+        playerSpeed = playerBaseSpeed;
     }
     public void ChargePrep()
     {
