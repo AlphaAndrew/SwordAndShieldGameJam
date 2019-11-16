@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Sword : NetworkBehaviour
+public class Sword : MonoBehaviour
 {
     PlayerControl playerScript;
     public float normalDamage;
@@ -11,49 +11,50 @@ public class Sword : NetworkBehaviour
 
     private void Start()
     {
-        if (hasAuthority)
-        {
+
             playerScript = this.GetComponentInParent<PlayerControl>();
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hasAuthority)
-        {
-            string colliderTag = other.gameObject.tag;
-            switch (colliderTag)
+       
+            if (other.gameObject.tag != null)
             {
-                case "Player":
-                    //check if regular or charged attack with bool
-                    if (playerScript.isCharging)
-                    {
-                        playerScript.ApplyDamage(chargedDamage);
-                    }
-                    else //normal attack
-                    {
-                        playerScript.ApplyDamage(normalDamage);
-                    }
+                string colliderTag = other.gameObject.tag;
+                switch (colliderTag)
+                {
+                    case "Player":
+                        //check if regular or charged attack with bool
+                        if (playerScript.isCharging)
+                        {
+                            playerScript.ApplyDamage(chargedDamage);
+                        }
+                        else //normal attack
+                        {
+                            playerScript.ApplyDamage(normalDamage);
+                        }
 
-                    break;
+                        break;
 
-                case "Shield":
-                    // check if regular or charged attack with bool
-                    if (playerScript.isCharging)
-                    {
-                        playerScript.hitSomeone = true;
-                    }
-                    else //normal attack
-                    {
-                        //blocked, nothin happens?
-                    }
-                    break;
+                    case "Shield":
+                        // check if regular or charged attack with bool
+                        if (playerScript.isCharging)
+                        {
+                            playerScript.hitSomeone = true;
+                        }
+                        else //normal attack
+                        {
+                            //blocked, nothin happens?
+                        }
+                        break;
 
-                default:
-                    Debug.Log("Collided with something not in switch statemetn");
-                    break;
+                    default:
+                        Debug.Log("Collided with something not in switch statemetn");
+                        break;
+                }
             }
-        }
+        
     }
 
     private void Update()
