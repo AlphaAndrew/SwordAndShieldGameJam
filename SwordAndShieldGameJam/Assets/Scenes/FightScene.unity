@@ -230,6 +230,7 @@ MonoBehaviour:
   playerSpeed: 0.5
   chargeMultiplier: 5
   chargeLimit: 2
+  chargeSpeed: 15
 --- !u!54 &137334506
 Rigidbody:
   m_ObjectHideFlags: 0

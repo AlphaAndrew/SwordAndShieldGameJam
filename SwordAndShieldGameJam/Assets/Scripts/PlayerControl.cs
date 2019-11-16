@@ -11,6 +11,14 @@ public class PlayerControl : MonoBehaviour
     public float chargeMultiplier;
     private float chargeTimer;
     public float chargeLimit;
+    private bool isCharging = false;
+
+    private Vector3 chargeStartTrans;
+    private Vector3 chargeEndTrans;
+    private float chargeStartTime;
+    private float chargeDistance;
+    public float chargeSpeed = 1f;
+    private float chargeDuration;
     //public Camera mainCamera;
 
     // Start is called before the first frame update
@@ -36,15 +44,37 @@ public class PlayerControl : MonoBehaviour
         else if(Input.GetMouseButtonUp(0)) {
             Debug.Log("Release");
             //Attack
-            ChargeAttack();
+            ChargePrep();
+            //isCharging = true;
             chargeTimer = 0;
+        }
+        if (isCharging)
+        {
+            ChargeAttack();
         }
     }
 
+    public void ChargePrep()
+    {
+        chargeStartTrans = player.transform.position;
+        chargeEndTrans = player.transform.position + transform.forward * (chargeMultiplier * chargeTimer);
+        isCharging = true;
+        chargeStartTime = Time.time;
+        chargeDistance = Vector3.Distance(player.transform.position, player.transform.position + transform.forward * (chargeMultiplier * chargeTimer));
+    }
     public void ChargeAttack()
     {
-
-        player.transform.position += transform.forward * (chargeMultiplier * chargeTimer); //* (chargeTimer/120);
+        //Attack
+        if (chargeDuration < 1)
+        {
+            chargeDuration = (Time.time - chargeStartTime) * chargeSpeed / chargeDistance;
+            player.transform.position = Vector3.Lerp(chargeStartTrans, chargeEndTrans, chargeDuration);
+        }
+        else
+        {
+            isCharging = false;
+            chargeDuration = 0;
+        }
     }
     public void MovementControls()
     {
