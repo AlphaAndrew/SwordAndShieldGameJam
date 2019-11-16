@@ -8,6 +8,7 @@ public class PlayerControl : NetworkBehaviour
     //Player
     private Rigidbody playerRB;
     private GameObject player;
+    private string playerTeam;
     //Health
     public float health;
     private float currentHealth;
@@ -39,9 +40,17 @@ public class PlayerControl : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //playerRB = GetComponent<Rigidbody>();
-        player = this.gameObject;
-        playerSpeed = playerBaseSpeed;
+        if (isLocalPlayer)
+        {
+            //playerRB = GetComponent<Rigidbody>();
+            player = this.gameObject;
+            playerSpeed = playerBaseSpeed;
+
+
+
+
+            playerTeam = "Red";
+        }
     }
 
     // Update is called once per frame
@@ -187,5 +196,10 @@ public class PlayerControl : NetworkBehaviour
     public void Death()
     {
         //Respawn
+    }
+
+    public string GetTeam()
+    {
+        return playerTeam;
     }
 }
