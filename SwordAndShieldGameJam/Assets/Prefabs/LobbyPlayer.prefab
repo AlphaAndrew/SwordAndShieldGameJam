@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player
+  m_Text: 'Enemy
 
 '
 --- !u!1 &2875305523890989792
@@ -159,7 +159,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ready
+  m_Text: Not Ready
 --- !u!1 &4247488752794366247
 GameObject:
   m_ObjectHideFlags: 0

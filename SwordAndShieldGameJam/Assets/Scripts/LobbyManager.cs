@@ -35,4 +35,9 @@ public class LobbyManager : NetworkLobbyManager
         }
         canvas.SetActive(false);
     }
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        base.OnClientSceneChanged(conn);
+        canvas.SetActive(false);
+    }
 }

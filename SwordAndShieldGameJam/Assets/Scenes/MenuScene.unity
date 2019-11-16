@@ -233,6 +233,7 @@ MonoBehaviour:
   lobbySlots: []
   lobby: {fileID: 183780905}
   canvas: {fileID: 238526822}
+  lobbyPlayers: []
 --- !u!4 &158072255
 Transform:
   m_ObjectHideFlags: 0

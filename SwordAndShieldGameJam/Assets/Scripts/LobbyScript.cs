@@ -10,22 +10,22 @@ public class LobbyScript : NetworkLobbyPlayer
     public Button joinButton;
     public Text playerText;
     public Text joinText;
+    private bool setup = false;
 
     public void OnClickJoinButton()
     {
-        if (isLocalPlayer)
-        {
-            SendReadyToBeginMessage();
-            joinText.text = "Ready";
-        }
-
+        SendReadyToBeginMessage();
+        joinText.text = "Ready";
     }
     public override void OnClientEnterLobby()
     {
         base.OnClientEnterLobby();
         parentPref = GameObject.FindGameObjectWithTag("ParentPref");
         gameObject.transform.SetParent(parentPref.transform);
-        
+        if (setup)
+        {
+            Setup();
+        }
     }
     public override void OnStartLocalPlayer()
     {
@@ -47,5 +47,6 @@ public class LobbyScript : NetworkLobbyPlayer
             joinText.text = "...";
             joinButton.enabled = false;
         }
+        setup = true;
     }
 }
