@@ -15,13 +15,13 @@ public class CapturePoint : NetworkBehaviour
     //All movement variables
     public bool canMove;
     public float moveSpeed;
-    public int waypointCounter;
+    private int waypointCounter;
     private float rotSpeed;
     public float distanceToWaypoint;
 
     //Battle Variables 
-    public float pointCounterAmount;
-    public float timeNeededWithControl;
+    public float addPointAmount;
+    public float addPointInterval;
     public enum PointStatus{
         Contested,
         Controlled,
@@ -125,25 +125,18 @@ public class CapturePoint : NetworkBehaviour
     {
         while (true)
         {
-
             //sets the status of the point (contested, controlled,etc)
+            yield return new WaitForEndOfFrame();
             pointStatus = SetPointStatus();
             switch (pointStatus)
             {
                 case PointStatus.Contested:
-
-                    /*foreach (GameObject player in playersInRange){
-                        player.GetComponent<PlayerControl>().accumulatePoints = false;
-                    }   */
-
+                    //contested
                     break;
                 case PointStatus.Controlled:
 
-                    //possible solution: A coroutine "accumulatePoints" would be set to true in PlayerControl if the point is controlled.
-                    //When PointStatus changes to contested, we set the accumulatePoints coroutine to false in the local player script.
-                    //The coroutine would add playerScore every so often and update the UI via a [command]
-
-                    // playersInRadius[0].GetComponent<PlayerControl>().accumulatePoints = true;
+                    //possible solution: A coroutine "accumulatePoints" would be set to true in PlayerControl if the point is controlled
+                    // Or the solution below
                     break;
                 case PointStatus.Uncontested:
                     //Uncontested

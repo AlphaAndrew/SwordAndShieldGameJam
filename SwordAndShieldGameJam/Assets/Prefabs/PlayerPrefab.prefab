@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScore: 0
   health: 10
-  playerBaseSpeed: 0.5
+  playerBaseSpeed: 0.25
   playerShieldSpeed: 0.25
   shield: {fileID: 3551475204414576864}
   sideShieldPos: {fileID: 8072172193484585115}
