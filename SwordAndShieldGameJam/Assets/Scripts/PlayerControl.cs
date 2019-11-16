@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : NetworkBehaviour
 {
+    public float health;
+    private float currentHealth;
 
     private Rigidbody playerRB;
     private GameObject player;
@@ -11,7 +14,7 @@ public class PlayerControl : MonoBehaviour
     public float chargeMultiplier;
     private float chargeTimer;
     public float chargeLimit;
-    private bool isCharging = false;
+    public bool isCharging = false;
 
     private Vector3 chargeStartTrans;
     private Vector3 chargeEndTrans;
@@ -31,29 +34,43 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovementControls();
-        //Normal Attack
-        //Charge Attack
-        if (Input.GetMouseButton(0))
+        if (isLocalPlayer)
         {
-            if (chargeTimer < chargeLimit)
+            if (currentHealth <= 0)
             {
-                chargeTimer += Time.deltaTime;
+                //Death
             }
-        }
-        else if(Input.GetMouseButtonUp(0)) {
-            Debug.Log("Release");
-            //Attack
-            ChargePrep();
-            //isCharging = true;
-            chargeTimer = 0;
-        }
-        if (isCharging)
-        {
-            ChargeAttack();
-        }
+            MovementControls();
+            //Normal Attack
+            //Charge Attack
+            if (Input.GetMouseButton(0))
+            {
+                if (chargeTimer < chargeLimit)
+                {
+                    chargeTimer += Time.deltaTime;
+                }
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Release");
+                //Attack
+                ChargePrep();
+                //isCharging = true;
+                chargeTimer = 0;
+            }
+            if (isCharging)
+            {
+                ChargeAttack();
+            }
+
+            if (Input.GetMouseButton(1))
+            {
+                //Shield
+            }
+        }        
     }
 
+    public void Shield
     public void ChargePrep()
     {
         chargeStartTrans = player.transform.position;
@@ -103,5 +120,14 @@ public class PlayerControl : MonoBehaviour
         float y = -Input.GetAxis("Mouse X");
         player.transform.Rotate(0, -y, 0);
         //Camera.main.transform.Rotate(-x, 0, 0);
+    }
+
+    public void ApplyDamage(float damage)
+    {
+        currentHealth -= damage;
+    }
+    public void Death()
+    {
+        //Respawn
     }
 }
