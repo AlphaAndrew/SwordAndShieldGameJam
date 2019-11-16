@@ -220,7 +220,7 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  m_ShowLobbyGUI: 1
+  m_ShowLobbyGUI: 0
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 2
   m_MinPlayers: 0
@@ -232,6 +232,7 @@ MonoBehaviour:
   m_PlayScene: FightScene
   lobbySlots: []
   lobby: {fileID: 183780905}
+  canvas: {fileID: 238526822}
 --- !u!4 &158072255
 Transform:
   m_ObjectHideFlags: 0
@@ -254,7 +255,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158072253}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4394a3eef724546f896557197e2d6c44, type: 3}
   m_Name: 

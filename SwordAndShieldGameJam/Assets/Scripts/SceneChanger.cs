@@ -37,6 +37,7 @@ public class SceneChanger : MonoBehaviour
     public void Host()
     {
         manager.StartHost();
+        //manager.StartServer();
         //NetworkServer.AddPlayerForConnection(conn, playerPrefab, 0);        
         //SceneManager.LoadScene(sceneOne);
         //ClientScene.AddPlayer(0);
