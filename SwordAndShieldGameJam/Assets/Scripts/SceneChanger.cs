@@ -2,25 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class SceneChanger : MonoBehaviour
 {
-    public string levelOne;
+    public string sceneOne;
+    public string credits;
+    public GameObject host;
+    public GameObject play;
+    public GameObject join;
+    public GameObject back;
+    public GameObject creditsButton;
+    public NetworkManager manager;
 
-    public void LevelOne()
+    private void Start()
     {
-        SceneManager.LoadScene(levelOne);
+        play.SetActive(true);
+        creditsButton.SetActive(true);
+        host.SetActive(false);
+        join.SetActive(false);
+        back.SetActive(false);
     }
-    // Start is called before the first frame update
-    void Start()
+    public void Play()
     {
-        
+        play.SetActive(false);
+        creditsButton.SetActive(false);
+        host.SetActive(true);
+        join.SetActive(true);
+        back.SetActive(true);
+    }
+    public void Host()
+    {
+        //manager.StartServer();
+        SceneManager.LoadScene(sceneOne);
+    }
+    public void Join()
+    {
+        //manager.StartClient();
+        SceneManager.LoadScene(sceneOne);
+    }
+    public void Back()
+    {
+        play.SetActive(true);
+        creditsButton.SetActive(true);
+        host.SetActive(false);
+        join.SetActive(false);
+        back.SetActive(false);
+    }
+    //Load Credits
+    public void Credits()
+    {
+        SceneManager.LoadScene(credits);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
