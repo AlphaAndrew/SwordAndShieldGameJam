@@ -18,7 +18,6 @@ public class Sword : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       
             if (other.gameObject.tag != null)
             {
                 string colliderTag = other.gameObject.tag;

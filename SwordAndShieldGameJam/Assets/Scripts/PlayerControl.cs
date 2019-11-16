@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Player control script
+/// Includes score, health, movement, attack, and block methods
+/// </summary>
 public class PlayerControl : NetworkBehaviour
 {
     //Player
@@ -46,7 +50,18 @@ public class PlayerControl : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            //playerRB = GetComponent<Rigidbody>();
+
+            // iterates through the children of the main gameobject, looking for player tag. ATM the body has the player tag, switching to a body tag might be needed
+            //foreach (Transform child in transform)
+            //{
+            //    if (child.tag == "Player")
+            //    {
+            //        playerRB = child.GetComponent<Rigidbody>();
+            //    }
+            //}
+
+            playerRB = GetComponent<Rigidbody>();
+
             player = this.gameObject;
             playerSpeed = playerBaseSpeed;
 
@@ -58,7 +73,7 @@ public class PlayerControl : NetworkBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isLocalPlayer)
         {
@@ -79,14 +94,15 @@ public class PlayerControl : NetworkBehaviour
             else if (Input.GetMouseButtonUp(0))
             {
                 //Attack
-                ChargePrep();
+                //ChargePrep();
                 //isCharging = true;
+                playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
                 chargeTimer = 0;
             }
-            if (isCharging)
-            {
-                ChargeAttack();
-            }
+            //if (isCharging)
+            //{
+            //    ChargeAttack();
+            //}
             if (isBouncing)
             {
                 BounceBack();
@@ -115,6 +131,7 @@ public class PlayerControl : NetworkBehaviour
         shield.transform.SetPositionAndRotation(sideShieldPos.transform.position, sideShieldPos.transform.rotation);
         playerSpeed = playerBaseSpeed;
     }
+
     //Charge Attack Variables
     public void ChargePrep()
     {

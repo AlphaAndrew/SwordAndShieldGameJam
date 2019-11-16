@@ -10,6 +10,8 @@ TagManager:
   - StatsManager
   - Waypoint
   - PlayerObject
+  - ParentPref
+  - LobbyPlayer
   layers:
   - Default
   - TransparentFX
