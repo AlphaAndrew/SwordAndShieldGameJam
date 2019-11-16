@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class StatsManger : MonoBehaviour
+public class StatsManager : NetworkBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
