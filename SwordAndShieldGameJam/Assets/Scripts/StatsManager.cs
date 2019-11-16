@@ -26,7 +26,24 @@ public class StatsManager : NetworkBehaviour
     {
         foreach (GameObject player in players)
         {
-            
+            //if (player.GetTeam() != null)
+            //{
+            //    string team = player.GetTeam();
+            //    switch (team)
+            //    {
+            //        case "Red":
+            //            redTeamScore += player.GetLocalScore();
+            //            break;
+            //        case "Blue":
+            //            blueTeamScore += player.GetLocalScore();
+            //            break;
+
+            //        default:
+            //          Debug.Log("Player is on a team color that is not in the available set of teams");
+            //            break;
+
+            //    }
+            //}
         }
     }
     // Update is called once per frame
