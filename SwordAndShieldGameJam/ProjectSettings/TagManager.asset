@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CapturePoint
-  - Shield
   - Sword
+  - Shield
   layers:
   - Default
   - TransparentFX
