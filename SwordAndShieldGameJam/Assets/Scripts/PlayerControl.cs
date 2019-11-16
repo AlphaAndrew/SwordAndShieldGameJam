@@ -5,29 +5,36 @@ using UnityEngine.Networking;
 
 public class PlayerControl : NetworkBehaviour
 {
-    public float health;
-    private float currentHealth;
-
+    //Player
     private Rigidbody playerRB;
     private GameObject player;
+    //Health
+    public float health;
+    private float currentHealth;
+    //Speed
+    public float playerBaseSpeed;
+    public float playerShieldSpeed;
+    private float playerSpeed;
+    //Shield
     public GameObject shield;
     public GameObject sideShieldPos;
     public GameObject frontShieldPos;
-    private float playerSpeed;
-    public float playerBaseSpeed;
-    public float playerShieldSpeed;
+    //Charge
     public float chargeMultiplier;
-    private float chargeTimer;
     public float chargeLimit;
     public bool isCharging = false;
-    public bool hitSomeone = false;
-    private Vector3 chargeStartTrans;
-    private Vector3 chargeEndTrans;
-    private float chargeStartTime;
-    private float chargeDistance;
     public float chargeSpeed = 1f;
-    private float chargeDuration;
-    //public Camera mainCamera;
+    private float chargeTimer;
+    //Lerp
+    private Vector3 lerpStartPos;
+    private Vector3 lerpEndPos;
+    private float lerpDistance;
+    private float lerpStartTime;
+    private float lerpDuration;
+    //Bounce
+    public bool hitSomeone = false;
+    public bool isBouncing = false;
+    public float bounceMultiplier;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +65,6 @@ public class PlayerControl : NetworkBehaviour
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                Debug.Log("Release");
                 //Attack
                 ChargePrep();
                 //isCharging = true;
@@ -68,7 +74,10 @@ public class PlayerControl : NetworkBehaviour
             {
                 ChargeAttack();
             }
-
+            if (isBouncing)
+            {
+                BounceBack();
+            }
             if (Input.GetMouseButton(1))
             {
                 //Shield Up
@@ -96,31 +105,36 @@ public class PlayerControl : NetworkBehaviour
     //Charge Attack Variables
     public void ChargePrep()
     {
-        chargeStartTrans = player.transform.position;
-        chargeEndTrans = player.transform.position + transform.forward * (chargeMultiplier * chargeTimer);
+        lerpStartPos = player.transform.position;
+        lerpEndPos = player.transform.position + transform.forward * (chargeMultiplier * chargeTimer);
         isCharging = true;
-        chargeStartTime = Time.time;
-        chargeDistance = Vector3.Distance(player.transform.position, player.transform.position + transform.forward * (chargeMultiplier * chargeTimer));
+        lerpStartTime = Time.time;
+        lerpDistance = Vector3.Distance(player.transform.position, player.transform.position + transform.forward * (chargeMultiplier * chargeTimer));
     }
 
     //Charge Attack Implementation
     public void ChargeAttack()
     {
         //Attack
-        if (chargeDuration < 1 && !hitSomeone)
+        if (lerpDuration < 1 && !hitSomeone)
         {
-            chargeDuration = (Time.time - chargeStartTime) * chargeSpeed / chargeDistance;
-            player.transform.position = Vector3.Lerp(chargeStartTrans, chargeEndTrans, chargeDuration);
+            lerpDuration = (Time.time - lerpStartTime) * chargeSpeed / lerpDistance;
+            player.transform.position = Vector3.Lerp(lerpStartPos, lerpEndPos, lerpDuration);
         }
         else if (hitSomeone)
         {
-            BounceBack();
+            Debug.Log("Hit");
+            lerpStartPos = player.transform.position;
+            lerpEndPos = player.transform.position + -transform.forward * bounceMultiplier;
+            isBouncing = true;
+            lerpStartTime = Time.time;
+            lerpDistance = Vector3.Distance(player.transform.position, player.transform.position + -transform.forward * bounceMultiplier);
             isCharging = false;
         }
         else
         {
             isCharging = false;
-            chargeDuration = 0;
+            lerpDuration = 0;
         }
     }
     public void MovementControls()
@@ -153,7 +167,12 @@ public class PlayerControl : NetworkBehaviour
     }
     public void BounceBack()
     {
-
+        //Bounce
+        if (lerpDuration < 1 && !hitSomeone)
+        {
+            lerpDuration = (Time.time - lerpStartTime) * chargeSpeed / lerpDistance;
+            player.transform.position = Vector3.Lerp(lerpStartPos, lerpEndPos, lerpDuration);
+        }
     }
     public void ApplyDamage(float damage)
     {
