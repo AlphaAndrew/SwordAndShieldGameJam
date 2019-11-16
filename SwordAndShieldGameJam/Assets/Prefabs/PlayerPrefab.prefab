@@ -233,7 +233,7 @@ MonoBehaviour:
   playerScore: 0
   health: 10
   playerBaseSpeed: 0.25
-  playerShieldSpeed: 0.25
+  playerShieldSpeed: 0.1
   shield: {fileID: 3551475204414576864}
   sideShieldPos: {fileID: 8072172193484585115}
   frontShieldPos: {fileID: 3382413834376245715}
