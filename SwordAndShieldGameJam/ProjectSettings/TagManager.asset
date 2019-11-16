@@ -8,6 +8,7 @@ TagManager:
   - Sword
   - Shield
   - StatsManager
+  - Waypoint
   layers:
   - Default
   - TransparentFX
