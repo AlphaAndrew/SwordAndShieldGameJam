@@ -14,7 +14,9 @@ public class SceneChanger : MonoBehaviour
     public GameObject join;
     public GameObject back;
     public GameObject creditsButton;
-    public NetworkManager manager;
+    public GameObject network;
+    //private NetworkLobbyManager manager;
+
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class SceneChanger : MonoBehaviour
         host.SetActive(false);
         join.SetActive(false);
         back.SetActive(false);
+        //manager = network.GetComponent<NetworkLobbyManager>();
     }
     public void Play()
     {
@@ -35,12 +38,15 @@ public class SceneChanger : MonoBehaviour
     public void Host()
     {
         //manager.StartServer();
-        SceneManager.LoadScene(sceneOne);
+        //NetworkServer.AddPlayerForConnection(conn, playerPrefab, 0);        
+        //SceneManager.LoadScene(sceneOne);
+        //ClientScene.AddPlayer(0);
     }
     public void Join()
     {
         //manager.StartClient();
-        SceneManager.LoadScene(sceneOne);
+        //ClientScene.AddPlayer(0);
+        //SceneManager.LoadScene(sceneOne);
     }
     public void Back()
     {
