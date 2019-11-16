@@ -70,7 +70,10 @@ public class PlayerControl : NetworkBehaviour
         }        
     }
 
-    public void Shield
+    public void Shield()
+    {
+
+    }
     public void ChargePrep()
     {
         chargeStartTrans = player.transform.position;
