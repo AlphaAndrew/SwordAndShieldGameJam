@@ -9,6 +9,7 @@ public class PlayerControl : NetworkBehaviour
     private Rigidbody playerRB;
     private GameObject player;
     private string playerTeam;
+    public float playerScore;
     //Health
     public float health;
     private float currentHealth;
