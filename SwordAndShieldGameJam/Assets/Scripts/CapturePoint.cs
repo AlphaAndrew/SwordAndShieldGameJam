@@ -10,6 +10,8 @@ public class CapturePoint : NetworkBehaviour
     public bool isMoving;
     public float moveSpeed;
     public int waypointCounter;
+    private float rotSpeed;
+    public float distanceToWaypoint;
 
     void Start()
     {
@@ -17,6 +19,8 @@ public class CapturePoint : NetworkBehaviour
         {
             playersInRange = new List<GameObject>();
             waypointCounter = 0;
+            rotSpeed = 10;
+            isMoving = true;
         }
     }
 
@@ -28,10 +32,8 @@ public class CapturePoint : NetworkBehaviour
             switch (colliderTag)
             {
                 case "Player":
+                    Debug.Log("Added Player to control point list");
                     playersInRange.Add(other.gameObject);
-                    break;
-                case "Waypoint":
-                    waypointCounter++;
                     break;
 
                 default:
@@ -60,9 +62,32 @@ public class CapturePoint : NetworkBehaviour
     void Update()
     {
         if (isServer && isMoving) {
-            //move towards the waypoint
-            Vector3 targetDir = waypoints[waypointCounter].transform.position - this.transform.position;
-            this.gameObject.transform.Translate(targetDir * Time.deltaTime * moveSpeed);
+
+            
+            distanceToWaypoint = Vector3.Distance(waypoints[waypointCounter].transform.position, this.gameObject.transform.position);
+
+            ////Rotate to the target point
+            Quaternion targetRotation = Quaternion.LookRotation(waypoints[waypointCounter].transform.position - this.gameObject.transform.position);
+            targetRotation = Quaternion.Slerp(this.gameObject.transform.rotation, targetRotation, Time.deltaTime * rotSpeed);
+            this.gameObject.transform.rotation = targetRotation;
+            ////move forward
+            this.gameObject.transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
+
+            if(distanceToWaypoint <= 3.0f)
+            {
+                if (waypointCounter < waypoints.Count -1)
+                {
+                    waypointCounter++;
+                    Debug.Log("waypoint counter: " + waypointCounter);
+                   
+                }
+                else
+                {
+                    Debug.Log("reset counter to zero");
+
+                    waypointCounter = 0;
+                }
+            }
         }
     }
 }
