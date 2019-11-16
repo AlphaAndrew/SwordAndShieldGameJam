@@ -130,6 +130,7 @@ public class PlayerControl : NetworkBehaviour
             lerpStartTime = Time.time;
             lerpDistance = Vector3.Distance(player.transform.position, player.transform.position + -transform.forward * bounceMultiplier);
             isCharging = false;
+            hitSomeone = false;
         }
         else
         {
@@ -172,6 +173,11 @@ public class PlayerControl : NetworkBehaviour
         {
             lerpDuration = (Time.time - lerpStartTime) * chargeSpeed / lerpDistance;
             player.transform.position = Vector3.Lerp(lerpStartPos, lerpEndPos, lerpDuration);
+        }
+        else
+        {
+            isBouncing = false;
+            lerpDuration = 0;
         }
     }
     public void ApplyDamage(float damage)
