@@ -324,7 +324,7 @@ public class PlayerControl : NetworkBehaviour
         cantMove = true;
         currentHealth = health;
         playerBody.SetActive(false);
-        int rand = Random.Range(0, spawnPoints.Length);
+        int rand = Random.Range(0, spawnPoints.Length -1);
         this.gameObject.transform.position = spawnPoints[rand].transform.position;
         yield return new WaitForSeconds(deathTime);
         playerBody.SetActive(true);
