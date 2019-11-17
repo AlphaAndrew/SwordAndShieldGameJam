@@ -91,6 +91,7 @@ public class PlayerControl : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+
             if (currentHealth <= 0)
             {
                 //Death
@@ -226,11 +227,14 @@ public class PlayerControl : NetworkBehaviour
         //Bounce
         if (lerpDuration < 1 && !hitSomeone)
         {
+
             lerpDuration = (Time.time - lerpStartTime) * chargeSpeed / lerpDistance;
             player.transform.position = Vector3.Lerp(lerpStartPos, lerpEndPos, lerpDuration);
+            Debug.Log("start: " + lerpStartPos + " End: " + lerpEndPos);
         }
         else
         {
+            Debug.Log("Bouncing false");
             isBouncing = false;
             lerpDuration = 0;
         }
