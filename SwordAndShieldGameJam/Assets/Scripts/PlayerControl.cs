@@ -15,7 +15,7 @@ public class PlayerControl : NetworkBehaviour
     private GameObject player;
     [SyncVar]
     public GameObject playerBody;
-    [SyncVar]
+    
     public int playerNum = 0;
     [SyncVar]
     public string playerTeam;
@@ -74,20 +74,19 @@ public class PlayerControl : NetworkBehaviour
     private Animator anim;
     // Start is called before the first frame update
     void Start()
-    {       
+    {
+        if (playerNum == 0)
+        {
+            playerTeam = "Red";
+            playerNum++;
+        }
+        else if (playerNum == 1)
+        {
+            playerTeam = "Blue";
+            playerNum++;
+        }
         if (isLocalPlayer)
         {
-            if (playerNum == 0)
-            {
-                playerTeam = "Red";
-
-                playerNum++;
-            }
-            else if (playerNum == 1)
-            {
-                playerTeam = "Blue";
-                playerNum++;
-            }
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             if (isServer)
