@@ -20,7 +20,9 @@ public class Sword : MonoBehaviour
     {
             if (other.gameObject.tag != null)
             {
-                string colliderTag = other.gameObject.tag;
+            Debug.Log("hit something");
+
+            string colliderTag = other.gameObject.tag;
                 switch (colliderTag)
                 {
                     case "Player":
@@ -37,15 +39,16 @@ public class Sword : MonoBehaviour
                         break;
 
                     case "Shield":
-                        // check if regular or charged attack with bool
-                        if (playerScript.isCharging)
-                        {
-                            playerScript.hitSomeone = true;
-                        }
-                        else //normal attack
-                        {
-                            //blocked, nothin happens?
-                        }
+                         Debug.Log("hit Sheild");
+                            // check if regular or charged attack with bool
+                            if (playerScript.isCharging)
+                            {
+                                playerScript.hitSomeone = true;
+                            }
+                            else //normal attack
+                            {
+                                //blocked, nothin happens?
+                            }
                         break;
 
                     default:
