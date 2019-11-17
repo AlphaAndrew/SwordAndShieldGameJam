@@ -15,6 +15,7 @@ TagManager:
   - Camera
   - Obstacle
   - SpawnPos
+  - Boundary
   layers:
   - Default
   - TransparentFX
