@@ -269,19 +269,19 @@ public class PlayerControl : NetworkBehaviour
                 player.transform.position += transform.right * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
-            else if(Input.GetKey(KeyCode.A))
+            if(Input.GetKey(KeyCode.A))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.right * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
-            else if(Input.GetKey(KeyCode.W))
+            if(Input.GetKey(KeyCode.W))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += transform.forward * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
-            else if(Input.GetKey(KeyCode.S))
+            if(Input.GetKey(KeyCode.S))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.forward * playerSpeed;
