@@ -16,8 +16,6 @@ public class PlayerControl : NetworkBehaviour
     [SyncVar]
     public GameObject playerBody;
     [SyncVar]
-    public int playerNum = 0;
-    [SyncVar]
     public string playerTeam;
     [SyncVar]
     public float playerScore;
@@ -77,9 +75,7 @@ public class PlayerControl : NetworkBehaviour
     {
 
         if (isLocalPlayer)
-        {
-            //GameObject.Find("Canvas").GetComponent<StatsManager>().GetTeam();
-            
+        {            
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             if (isServer)
@@ -99,10 +95,10 @@ public class PlayerControl : NetworkBehaviour
     {
         currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
-        //if (playerTeam == "Red")
-        //{
-        //    rend.material.color = Color.red;
-        //}
+        if (playerTeam == "Red")
+        {
+            rend.material.color = Color.red;
+        }
         playerRB = GetComponentInChildren<Rigidbody>();
         anim = this.gameObject.GetComponentInChildren<Animator>();
         player = this.gameObject;
@@ -116,10 +112,10 @@ public class PlayerControl : NetworkBehaviour
     {
         currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
-        //if (playerTeam == "Red")
-        //{
-        //    rend.material.color = Color.red;
-        //}
+        if (playerTeam == "Red")
+        {
+            rend.material.color = Color.red;
+        }
         playerRB = GetComponentInChildren<Rigidbody>();
         anim = this.gameObject.GetComponentInChildren<Animator>();
         player = this.gameObject;
