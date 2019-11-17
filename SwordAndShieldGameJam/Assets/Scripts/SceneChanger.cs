@@ -8,7 +8,6 @@ using UnityEngine.Networking;
 public class SceneChanger : NetworkBehaviour
 {
     public string sceneOne;
-    public string credits;
     public GameObject host;
     public GameObject play;
     public GameObject join;
@@ -18,6 +17,7 @@ public class SceneChanger : NetworkBehaviour
     public GameObject network;
     public GameObject backGround1;
     public GameObject backGround2;
+    public GameObject backGroundCredits;
     private NetworkLobbyManager manager;
     public bool inLobby = false;
     public bool isHost = false;
@@ -31,6 +31,7 @@ public class SceneChanger : NetworkBehaviour
         join.SetActive(false);
         backGround1.SetActive(true);
         backGround2.SetActive(false);
+        backGroundCredits.SetActive(false);
         manager = network.GetComponent<NetworkLobbyManager>();
         joinField.text = "localhost";
     }
@@ -44,6 +45,7 @@ public class SceneChanger : NetworkBehaviour
 
         backGround1.SetActive(false);
         backGround2.SetActive(true);
+        backGroundCredits.SetActive(false);
     }
     public void Host()
     {
@@ -64,7 +66,15 @@ public class SceneChanger : NetworkBehaviour
     //Load Credits
     public void Credits()
     {
-        SceneManager.LoadScene(credits);
+        play.SetActive(true);
+        creditsButton.SetActive(false);
+        joinFieldParent.SetActive(false);
+        host.SetActive(false);
+        join.SetActive(false);
+
+        backGround1.SetActive(false);
+        backGround2.SetActive(false);
+        backGroundCredits.SetActive(true);
     }
 
     private void Update()

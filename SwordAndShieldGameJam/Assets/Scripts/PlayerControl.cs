@@ -14,6 +14,8 @@ public class PlayerControl : NetworkBehaviour
     [SyncVar]
     private GameObject player;
     [SyncVar]
+    public GameObject playerBody;
+    [SyncVar]
     public int playerNum = 0;
     [SyncVar]
     public string playerTeam;
@@ -64,7 +66,8 @@ public class PlayerControl : NetworkBehaviour
     public Camera camera;
     private Renderer rend;
     public bool cantMove;
-   
+    public GameObject[] spawnPoints;
+    public float deathTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,7 +86,16 @@ public class PlayerControl : NetworkBehaviour
         
         if (isLocalPlayer)
         {
-            CmdVariableSync();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            if (isServer)
+            {
+                VariableSync();
+            }
+            else
+            {
+                CmdVariableSync();
+            }           
             return;
         }
         camera.enabled = false;
@@ -91,6 +103,7 @@ public class PlayerControl : NetworkBehaviour
     [Command]
     public void CmdVariableSync()
     {
+        currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
         if (playerTeam == "Red")
         {
@@ -100,12 +113,30 @@ public class PlayerControl : NetworkBehaviour
 
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
-
+        //playerBody = GameObject.FindGameObjectWithTag("Player");
         playerTeam = "Red";
         shield.GetComponent<BoxCollider>().enabled = false;
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
         return;
     }
+    public void VariableSync()
+    {
+        currentHealth = health;
+        rend = GetComponentInChildren<Renderer>();
+        if (playerTeam == "Red")
+        {
+            rend.material.color = Color.red;
+        }
+        playerRB = GetComponentInChildren<Rigidbody>();
 
+        player = this.gameObject;
+        playerSpeed = playerBaseSpeed;
+        //playerBody = GameObject.FindGameObjectWithTag("Player");
+        playerTeam = "Red";
+        shield.GetComponent<BoxCollider>().enabled = false;
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
+        return;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -116,7 +147,7 @@ public class PlayerControl : NetworkBehaviour
 
         if (currentHealth <= 0)
         {
-            Death();
+            StartCoroutine("Death");
         }
 
         MovementControls();
@@ -219,7 +250,7 @@ public class PlayerControl : NetworkBehaviour
     {
         Debug.Log("Bounce");
         //Bounce
-        if (lerpDuration < 1 && !hitSomeone)
+        if (lerpDuration < 1)
         {
 
             lerpDuration = (Time.time - lerpStartTime) * chargeSpeed / lerpDistance;
@@ -288,10 +319,16 @@ public class PlayerControl : NetworkBehaviour
     {
         playerScore += value;
     }
-    public void Death()
+    public IEnumerator Death()
     {
+        cantMove = true;
         currentHealth = health;
-        //Respawn
+        playerBody.SetActive(false);
+        int rand = Random.Range(0, spawnPoints.Length -1);
+        this.gameObject.transform.position = spawnPoints[rand].transform.position;
+        yield return new WaitForSeconds(deathTime);
+        playerBody.SetActive(true);
+        cantMove = false;
     }
 
     public string GetTeam()
