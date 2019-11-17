@@ -26,9 +26,10 @@ public class StatsManager : NetworkBehaviour
     public string team;
     void Start()
     {
+        StartCoroutine(FillPlayerList());
         if (isServer)
         {
-            StartCoroutine(FillPlayerList());
+
            // StartCoroutine(GetScores());
            
         }
