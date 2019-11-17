@@ -6,23 +6,39 @@ using UnityEngine.UI;
 
 public class LobbyManager : NetworkLobbyManager
 {
+    public GameObject cam;
+    private SceneChanger sceneChangerScript;
     public GameObject lobby;
     public GameObject canvas;
     public GameObject[] lobbyPlayers;
     private void Start()
     {
+        sceneChangerScript = cam.GetComponent<SceneChanger>();
         lobby.SetActive(false);
     }
-    public override void OnStartHost()
+    public override void OnLobbyStartHost()
     {
-        base.OnStartHost();
+        base.OnLobbyStartHost();
         lobby.SetActive(true);
-        Debug.Log("Game Start");
+        sceneChangerScript.LobbyEnter();
     }
-    public override void OnStartClient(NetworkClient lobbyClient)
+    public override void OnStopHost()
     {
-        base.OnStartClient(lobbyClient);
+        base.OnStopHost();
+        ServerReturnToLobby();
+        Debug.Log("Host Stop");
+    }
+    public override void OnLobbyStartClient(NetworkClient lobbyClient)
+    {
+        base.OnLobbyStartClient(lobbyClient);
         lobby.SetActive(true);
+        sceneChangerScript.LobbyEnter();
+    }
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        ServerReturnToLobby(); 
+        Debug.Log("Client Stop");
     }
 
     public override void OnLobbyServerPlayersReady()
