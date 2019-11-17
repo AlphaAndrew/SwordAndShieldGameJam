@@ -17,6 +17,7 @@ public class PlayerControl : NetworkBehaviour
     public GameObject playerBody;
     [SyncVar]
     public int playerNum = 0;
+    [SyncVar]
     public string playerTeam;
     [SyncVar]
     public float playerScore;
@@ -73,8 +74,7 @@ public class PlayerControl : NetworkBehaviour
     private Animator anim;
     // Start is called before the first frame update
     void Start()
-    {
-      
+    {       
         if (isLocalPlayer)
         {
             if (playerNum == 0)
