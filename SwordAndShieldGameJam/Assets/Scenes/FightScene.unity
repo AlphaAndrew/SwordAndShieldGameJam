@@ -2011,6 +2011,11 @@ PrefabInstance:
       propertyPath: m_AssetId.i15
       value: 116
       objectReference: {fileID: 0}
+    - target: {fileID: 3013403640109950830, guid: 5fef408526e25f449911075bff95cf74,
+        type: 3}
+      propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5952160437221256171, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
       propertyPath: waypoints.Array.data[0]
