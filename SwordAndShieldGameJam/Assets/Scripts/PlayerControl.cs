@@ -25,7 +25,7 @@ public class PlayerControl : NetworkBehaviour
     [SyncVar]
     public float health;
     [SyncVar]
-    private float currentHealth;
+    private float currentHealth = 10;
     //Speed
     public float playerBaseSpeed;
     public float playerShieldSpeed;
