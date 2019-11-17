@@ -29,7 +29,8 @@ public class PlayerControl : NetworkBehaviour
     public GameObject frontShieldPos;
     //Charge
     public float chargeMultiplier;
-    public float chargeLimit;
+    public float chargeMinLimit;
+    public float chargeMaxLimit;
     public bool isCharging = false;
     public float chargeSpeed = 1f;
     private float chargeTimer;
@@ -81,6 +82,7 @@ public class PlayerControl : NetworkBehaviour
 
 
             playerTeam = "Red";
+            shield.GetComponent<BoxCollider>().enabled = false;
             return;
         }
         camera.enabled = false;
@@ -101,13 +103,14 @@ public class PlayerControl : NetworkBehaviour
             //Charge Attack
             if (Input.GetMouseButton(0))
             {
-                if (chargeTimer < chargeLimit)
+                if (chargeTimer < chargeMaxLimit)
                 {
                     chargeTimer += Time.deltaTime;
                 }
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                if(chargeTimer < chargeMinLimit) { return; }
                 //Attack
                 ChargePrep();
                 //isCharging = true;
@@ -137,12 +140,14 @@ public class PlayerControl : NetworkBehaviour
     //Shield to front of player
     public void ShieldUp()
     {
+        shield.GetComponent<BoxCollider>().enabled = true;
         shield.transform.SetPositionAndRotation(frontShieldPos.transform.position, frontShieldPos.transform.rotation);
         playerSpeed = playerShieldSpeed;
     }
     //Shield back down to side of player
     public void ShieldDown()
     {
+        shield.GetComponent<BoxCollider>().enabled = false;
         shield.transform.SetPositionAndRotation(sideShieldPos.transform.position, sideShieldPos.transform.rotation);
         playerSpeed = playerBaseSpeed;
     }

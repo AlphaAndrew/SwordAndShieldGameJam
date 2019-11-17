@@ -230,7 +230,8 @@ MonoBehaviour:
   sideShieldPos: {fileID: 8072172193484585115}
   frontShieldPos: {fileID: 3382413834376245715}
   chargeMultiplier: 20
-  chargeLimit: 2
+  chargeMinLimit: 0.5
+  chargeMaxLimit: 2
   isCharging: 0
   chargeSpeed: 25
   hitSomeone: 0
