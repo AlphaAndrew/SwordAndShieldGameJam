@@ -95,10 +95,6 @@ public class PlayerControl : NetworkBehaviour
     {
         currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
-        if (playerTeam == "Red")
-        {
-            rend.material.color = Color.red;
-        }
         playerRB = GetComponentInChildren<Rigidbody>();
         anim = this.gameObject.GetComponentInChildren<Animator>();
         player = this.gameObject;
@@ -112,10 +108,6 @@ public class PlayerControl : NetworkBehaviour
     {
         currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
-        if (playerTeam == "Red")
-        {
-            rend.material.color = Color.red;
-        }
         playerRB = GetComponentInChildren<Rigidbody>();
         anim = this.gameObject.GetComponentInChildren<Animator>();
         player = this.gameObject;
@@ -132,7 +124,10 @@ public class PlayerControl : NetworkBehaviour
         {
             return;
         }
-
+        if (playerTeam == "Red")
+        {
+            rend.material.color = Color.red;
+        }
         if (currentHealth <= 0)
         {
             StartCoroutine("Death");
