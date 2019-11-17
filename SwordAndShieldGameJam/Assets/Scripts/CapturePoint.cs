@@ -34,7 +34,7 @@ public class CapturePoint : NetworkBehaviour
     {
         if (isServer)
         {
-            statsManager = GameObject.Find("StatsManager").GetComponent<StatsManager>();
+            statsManager = GameObject.Find("Canvas").GetComponent<StatsManager>();
 
             playersInRadius = new List<GameObject>();
             waypointCounter = 0;
