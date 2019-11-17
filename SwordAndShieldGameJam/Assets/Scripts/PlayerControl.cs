@@ -45,6 +45,7 @@ public class PlayerControl : NetworkBehaviour
     public float bounceMultiplier;
 
     public Camera camera;
+    private Renderer rend;
 
     //Coroutine accumulatePoints;
     //see capture point "Do Battle" 
@@ -52,9 +53,11 @@ public class PlayerControl : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         if (playerNum == 0)
         {
             playerTeam = "Red";
+            
             playerNum++;
         }
         else if (playerNum == 1)
@@ -65,6 +68,11 @@ public class PlayerControl : NetworkBehaviour
         
         if (isLocalPlayer)
         {
+            rend = GetComponentInChildren<Renderer>();
+            if(playerTeam == "Red")
+            {
+                rend.material.color = Color.red;
+            }
             playerRB = GetComponent<Rigidbody>();
 
             player = this.gameObject;
