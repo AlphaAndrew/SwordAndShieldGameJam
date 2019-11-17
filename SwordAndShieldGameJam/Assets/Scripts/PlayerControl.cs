@@ -12,7 +12,7 @@ public class PlayerControl : NetworkBehaviour
     //Player
     private Rigidbody playerRB;
     private GameObject player;
-    private string playerTeam;
+    public string playerTeam;
     public float playerScore;
     //Health
     public float health;
