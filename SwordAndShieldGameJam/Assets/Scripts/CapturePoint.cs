@@ -134,9 +134,8 @@ public class CapturePoint : NetworkBehaviour
                     //contested
                     break;
                 case PointStatus.Controlled:
-
-                    //possible solution: A coroutine "accumulatePoints" would be set to true in PlayerControl if the point is controlled
-                    // Or the solution below
+                    playersInRadius[0].gameObject.GetComponent<PlayerControl>().playerScore += addPointAmount;
+                    yield return new WaitForSeconds(addPointInterval);
                     break;
                 case PointStatus.Uncontested:
                     //Uncontested
@@ -145,7 +144,6 @@ public class CapturePoint : NetworkBehaviour
                     break;
 
             }
-            yield return new WaitForEndOfFrame();
         }
     }
     /// <summary>
