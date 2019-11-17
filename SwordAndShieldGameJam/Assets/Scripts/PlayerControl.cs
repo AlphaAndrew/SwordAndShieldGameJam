@@ -31,6 +31,10 @@ public class PlayerControl : NetworkBehaviour
     //Shield
     [SyncVar]
     public GameObject shield;
+    public Material shieldMat;
+    [SyncVar]
+    public GameObject sword;
+    public Material swordMat;
     [SyncVar]
     public GameObject sideShieldPos;
     [SyncVar]
@@ -132,6 +136,8 @@ public class PlayerControl : NetworkBehaviour
         {
             Debug.Log(player + "Red");
             rend.material.color = Color.red;
+            sword.GetComponent<Renderer>().material = swordMat;
+            shield.GetComponent<Renderer>().material = shieldMat;
         }
         if (!isLocalPlayer)
         {

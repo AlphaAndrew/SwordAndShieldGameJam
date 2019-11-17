@@ -145,6 +145,9 @@ MonoBehaviour:
   playerBaseSpeed: 0.2
   playerShieldSpeed: 0.05
   shield: {fileID: 1170377102824311208}
+  shieldMat: {fileID: 2100000, guid: d7565feb30c93eb459a56e9d77dab796, type: 2}
+  sword: {fileID: 7665971537306681813}
+  swordMat: {fileID: 2100000, guid: a3b8853b243c3f348a10d43028892cc3, type: 2}
   sideShieldPos: {fileID: 8072172193484585115}
   frontShieldPos: {fileID: 3382413834376245715}
   chargeMultiplier: 20
@@ -1001,6 +1004,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Shield
       objectReference: {fileID: 0}
+    - target: {fileID: -6718823038479758959, guid: e3b1436513af4e3449b6b2ccb03c90e7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8a6207c8c7b47a439f0b48004d598cd, type: 2}
     - target: {fileID: -6183149351753312996, guid: e3b1436513af4e3449b6b2ccb03c90e7,
         type: 3}
       propertyPath: m_IsActive
@@ -1011,6 +1019,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: a4c31b6156a64194a9233596e665169b, type: 2}
+    - target: {fileID: -4548865558315354773, guid: e3b1436513af4e3449b6b2ccb03c90e7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 04a41d0f9d0fa0f4ba1ca15bc8f3aba1, type: 2}
     - target: {fileID: -4216859302048453862, guid: e3b1436513af4e3449b6b2ccb03c90e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1091,6 +1104,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 856365191234717131, guid: e3b1436513af4e3449b6b2ccb03c90e7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ff9b86f5ab63f26498a8732ac7c005e7, type: 2}
     - target: {fileID: 7665971536638474990, guid: e3b1436513af4e3449b6b2ccb03c90e7,
         type: 3}
       propertyPath: m_Name
