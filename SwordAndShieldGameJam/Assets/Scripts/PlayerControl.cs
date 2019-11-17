@@ -121,7 +121,7 @@ public class PlayerControl : NetworkBehaviour
 
         if (currentHealth <= 0)
         {
-            Death();
+            StartCoroutine("Death");
         }
 
         MovementControls();
