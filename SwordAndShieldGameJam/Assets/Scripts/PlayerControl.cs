@@ -208,10 +208,6 @@ public class PlayerControl : NetworkBehaviour
     {
         currentHealth -= damage;
     }
-    public void AddScore(float points)
-    {
-        this.playerScore += points;
-    }
     public void Death()
     {
         //Respawn
