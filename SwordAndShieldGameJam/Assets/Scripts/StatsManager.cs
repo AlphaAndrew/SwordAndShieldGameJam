@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+
 
 public class StatsManager : NetworkBehaviour
 {
-    public float redTeamScore;
-    public float blueTeamScore;
+    public float redTeamScore = 0;
+    public float blueTeamScore = 0;
+    public Text blueScoreText;
+    public Text redScoreText;
     public GameObject[] players;
     public bool activeBattle;
 
+    private float updateInterval = .25f;
+    private float updateIntervalTimer = 0;
     
     void Start()
     {
@@ -22,8 +28,38 @@ public class StatsManager : NetworkBehaviour
     }
     void Update()
     {
-        CheckForBattle();
+        if (!isServer)
+        { return; }
+
+        updateIntervalTimer += Time.deltaTime;
+        if (updateIntervalTimer > updateInterval)
+        {
+            Debug.Log("Update");
+            CheckForBattle();
+            //UpdateScoreText();
+            blueScoreText.text = "Blue Score: " + blueTeamScore;
+            redScoreText.text = "Red Score: " + redTeamScore;
+            updateIntervalTimer = 0;
+        }
+            
+        
     }
+    public void AddBluePoints(float value)
+    {
+        blueTeamScore += value;
+    }
+    public void AddRedPoints(float value)
+    {
+        redTeamScore += value;
+    }
+    public void UpdateScoreText()
+    {
+        Debug.Log("UpdateScore");
+        blueScoreText.text = "Blue Score: "+ blueTeamScore;
+        redScoreText.text = "Red Score: " + redTeamScore;
+
+    }
+
     //get all active players
     public IEnumerator FillPlayerList()
     {
@@ -35,7 +71,7 @@ public class StatsManager : NetworkBehaviour
     //probably shouldnt loop through players every frame so I commented for now
     //only two players so its not that expensive
 
-  /*  public IEnumerator GetScores()
+    public IEnumerator GetScores()
     {
         yield return new WaitForSeconds(.25f);
         foreach (GameObject player in players)
@@ -46,7 +82,6 @@ public class StatsManager : NetworkBehaviour
             {
                 string team = player.GetComponent<PlayerControl>().GetTeam();
 
-                  
                 switch (team)
                 {
                     case "Red":
@@ -72,7 +107,7 @@ public class StatsManager : NetworkBehaviour
             }
         }
         yield return null;
-    }*/
+    }
 
     /// <summary>
     /// Returns whether or not there is an active battle;

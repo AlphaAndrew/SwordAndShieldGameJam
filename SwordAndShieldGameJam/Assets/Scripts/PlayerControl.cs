@@ -208,6 +208,14 @@ public class PlayerControl : NetworkBehaviour
     {
         currentHealth -= damage;
     }
+    /// <summary>
+    /// Add points to the local player
+    /// </summary>
+    /// <param name="value"></param>
+    public void IncrimentPoints(float value)
+    {
+        playerScore += value;
+    }
     public void Death()
     {
         //Respawn
