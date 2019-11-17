@@ -17,6 +17,8 @@ public class SceneChanger : NetworkBehaviour
     public GameObject joinFieldParent;
     public InputField joinField;
     public GameObject network;
+    public GameObject backGround1;
+    public GameObject backGround2;
     private NetworkLobbyManager manager;
     public bool inLobby = false;
     public bool isHost = false;
@@ -29,6 +31,9 @@ public class SceneChanger : NetworkBehaviour
         host.SetActive(false);
         join.SetActive(false);
         back.SetActive(false);
+        backGround1.SetActive(true);
+        backGround2.SetActive(false);
+        back.SetActive(false);
         manager = network.GetComponent<NetworkLobbyManager>();
         joinField.text = "localhost";
     }
@@ -40,6 +45,9 @@ public class SceneChanger : NetworkBehaviour
         host.SetActive(true);
         join.SetActive(true);
         back.SetActive(true);
+
+        backGround1.SetActive(false);
+        backGround2.SetActive(true);
     }
     public void Host()
     {
@@ -77,12 +85,15 @@ public class SceneChanger : NetworkBehaviour
         //}
         //else
         //{
-            play.SetActive(true);
-            creditsButton.SetActive(true);
-            joinFieldParent.SetActive(false);
-            host.SetActive(false);
-            join.SetActive(false);
-            back.SetActive(false);
+        play.SetActive(true);
+        creditsButton.SetActive(true);
+        joinFieldParent.SetActive(false);
+        host.SetActive(false);
+        join.SetActive(false);
+        back.SetActive(false);
+
+        backGround1.SetActive(true);
+        backGround2.SetActive(false);
         //}
 
     }
