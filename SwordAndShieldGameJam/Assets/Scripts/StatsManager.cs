@@ -66,16 +66,18 @@ public class StatsManager : NetworkBehaviour
     [ClientRpc]
     public void RpcUpdateScoreText()
     {
-        blueScoreText.text = "Blue Score: "+ blueTeamScore;
-        redScoreText.text = "Red Score: " + redTeamScore;
+        //blueScoreText.text = "Blue Score: "+ blueTeamScore;
+        //redScoreText.text = "Red Score: " + redTeamScore;
     }
     [ClientRpc]
     public void RpcEndGame()
     {
+        Debug.Log("EndGame");
         foreach(GameObject play in players)
         {
             if (redTeamScore > blueTeamScore)
             {
+                Debug.Log("redwin");
                 if (play.GetComponent<PlayerControl>().playerTeam == "Red")
                 {
                     play.GetComponent<PlayerControl>().Win();

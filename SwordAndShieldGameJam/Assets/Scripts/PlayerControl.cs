@@ -114,7 +114,7 @@ public class PlayerControl : NetworkBehaviour
             rend.material.color = Color.red;
         }
         playerRB = GetComponentInChildren<Rigidbody>();
-        anim = this.gameObject.GetComponent<Animator>();
+        anim = this.gameObject.GetComponentInChildren<Animator>();
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
         //playerBody = GameObject.FindGameObjectWithTag("Player");
@@ -132,7 +132,7 @@ public class PlayerControl : NetworkBehaviour
             rend.material.color = Color.red;
         }
         playerRB = GetComponentInChildren<Rigidbody>();
-        anim = this.gameObject.GetComponent<Animator>();
+        anim = this.gameObject.GetComponentInChildren<Animator>();
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
         //playerBody = GameObject.FindGameObjectWithTag("Player");
