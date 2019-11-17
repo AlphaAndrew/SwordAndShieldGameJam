@@ -135,7 +135,8 @@ public class PlayerControl : NetworkBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if(chargeTimer < chargeMinLimit) { return; }
+            cantMove = false;
+            if (chargeTimer < chargeMinLimit) { return; }
             //Attack
             ChargePrep();
             //isCharging = true;
