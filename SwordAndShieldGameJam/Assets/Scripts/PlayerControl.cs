@@ -122,6 +122,7 @@ public class PlayerControl : NetworkBehaviour
     {
         if (playerTeam == "Red")
         {
+            Debug.Log(player + "Red");
             rend.material.color = Color.red;
         }
         if (!isLocalPlayer)
