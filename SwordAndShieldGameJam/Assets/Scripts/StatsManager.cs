@@ -7,8 +7,11 @@ using UnityEngine.UI;
 
 public class StatsManager : NetworkBehaviour
 {
+    [SyncVar]
     public float redTeamScore = 0;
+    [SyncVar]
     public float blueTeamScore = 0;
+
     public Text blueScoreText;
     public Text redScoreText;
     public GameObject[] players;
@@ -26,6 +29,8 @@ public class StatsManager : NetworkBehaviour
            
         }
     }
+
+ 
     void Update()
     {
         if (!isServer)
@@ -34,14 +39,16 @@ public class StatsManager : NetworkBehaviour
         updateIntervalTimer += Time.deltaTime;
         if (updateIntervalTimer > updateInterval)
         {
+            Debug.Log("Update");
             CheckForBattle();
-            UpdateScoreText();
+            RpcUpdateScoreText();
             
             updateIntervalTimer = 0;
         }
             
         
     }
+
     public void AddBluePoints(float value)
     {
         blueTeamScore += value;
@@ -50,7 +57,9 @@ public class StatsManager : NetworkBehaviour
     {
         redTeamScore += value;
     }
-    public void UpdateScoreText()
+
+    [ClientRpc]
+    public void RpcUpdateScoreText()
     {
         blueScoreText.text = "Blue Score: "+ blueTeamScore;
         redScoreText.text = "Red Score: " + redTeamScore;
@@ -67,43 +76,43 @@ public class StatsManager : NetworkBehaviour
     //probably shouldnt loop through players every frame so I commented for now
     //only two players so its not that expensive
 
-    public IEnumerator GetScores()
-    {
-        yield return new WaitForSeconds(.25f);
-        foreach (GameObject player in players)
-        {
-            var redScore = 0.0f;
-            var blueScore = 0.0f;
-            if (player.GetComponent<PlayerControl>().GetTeam() != null)
-            {
-                string team = player.GetComponent<PlayerControl>().GetTeam();
+    //public IEnumerator GetScores()
+    //{
+    //    yield return new WaitForSeconds(.25f);
+    //    foreach (GameObject player in players)
+    //    {
+    //        var redScore = 0.0f;
+    //        var blueScore = 0.0f;
+    //        if (player.GetComponent<PlayerControl>().GetTeam() != null)
+    //        {
+    //            string team = player.GetComponent<PlayerControl>().GetTeam();
 
-                switch (team)
-                {
-                    case "Red":
-                        redScore += player.GetComponent<PlayerControl>().playerScore;
-                        break;
-                    case "Blue":
-                        blueScore += player.GetComponent<PlayerControl>().playerScore;
-                        break;
+    //            switch (team)
+    //            {
+    //                case "Red":
+    //                    redScore += player.GetComponent<PlayerControl>().playerScore;
+    //                    break;
+    //                case "Blue":
+    //                    blueScore += player.GetComponent<PlayerControl>().playerScore;
+    //                    break;
 
-                    default:
-                        Debug.Log("Player is on a team color that is not in the available set of teams");
-                        break;
+    //                default:
+    //                    Debug.Log("Player is on a team color that is not in the available set of teams");
+    //                    break;
 
-                }
-            }
-            if(redTeamScore != redScore)
-            {
-                redTeamScore += redScore;
-            }
-            if(blueTeamScore != blueScore)
-            {
-                blueTeamScore += blueScore;
-            }
-        }
-        yield return null;
-    }
+    //            }
+    //        }
+    //        if(redTeamScore != redScore)
+    //        {
+    //            redTeamScore += redScore;
+    //        }
+    //        if(blueTeamScore != blueScore)
+    //        {
+    //            blueTeamScore += blueScore;
+    //        }
+    //    }
+    //    yield return null;
+    //}
 
     /// <summary>
     /// Returns whether or not there is an active battle;

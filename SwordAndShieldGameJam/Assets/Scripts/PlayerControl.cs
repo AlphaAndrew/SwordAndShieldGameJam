@@ -45,6 +45,7 @@ public class PlayerControl : NetworkBehaviour
     public float bounceMultiplier;
 
     public Camera camera;
+    private Renderer rend;
 
     //Coroutine accumulatePoints;
     //see capture point "Do Battle" 
@@ -52,9 +53,11 @@ public class PlayerControl : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         if (playerNum == 0)
         {
             playerTeam = "Red";
+            
             playerNum++;
         }
         else if (playerNum == 1)
@@ -65,7 +68,12 @@ public class PlayerControl : NetworkBehaviour
         
         if (isLocalPlayer)
         {
-            playerRB = GetComponent<Rigidbody>();
+            rend = GetComponentInChildren<Renderer>();
+            if(playerTeam == "Red")
+            {
+                rend.material.color = Color.red;
+            }
+            playerRB = GetComponentInChildren<Rigidbody>();
 
             player = this.gameObject;
             playerSpeed = playerBaseSpeed;
@@ -100,15 +108,15 @@ public class PlayerControl : NetworkBehaviour
             else if (Input.GetMouseButtonUp(0))
             {
                 //Attack
-                //ChargePrep();
+                ChargePrep();
                 //isCharging = true;
-                playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
+                //playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
                 chargeTimer = 0;
             }
-            //if (isCharging)
-            //{
-            //    ChargeAttack();
-            //}
+            if (isCharging)
+            {
+                ChargeAttack();
+            }
             if (isBouncing)
             {
                 BounceBack();
@@ -176,6 +184,17 @@ public class PlayerControl : NetworkBehaviour
     }
     public void MovementControls()
     {
+        Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        //if (m_Input.sqrMagnitude > 1)
+        //{
+        //    m_Input.Normalize();
+        //}
+
+        //if (playerRB.velocity.magnitude < 10f)
+        //{
+        //    playerRB.AddRelativeForce(m_Input * playerSpeed, ForceMode.VelocityChange);
+        //}
         if (Input.GetKey(KeyCode.D))
         {
             //playerRB.velocity = transform.right * playerSpeed;
