@@ -83,6 +83,8 @@ public class PlayerControl : NetworkBehaviour
         
         if (isLocalPlayer)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             CmdVariableSync();
             return;
         }
@@ -219,7 +221,7 @@ public class PlayerControl : NetworkBehaviour
     {
         Debug.Log("Bounce");
         //Bounce
-        if (lerpDuration < 1 && !hitSomeone)
+        if (lerpDuration < 1)
         {
 
             lerpDuration = (Time.time - lerpStartTime) * chargeSpeed / lerpDistance;
