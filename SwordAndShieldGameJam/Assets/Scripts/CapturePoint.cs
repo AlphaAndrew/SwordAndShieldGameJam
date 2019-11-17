@@ -64,7 +64,7 @@ public class CapturePoint : NetworkBehaviour
             string colliderTag = other.tag;
             switch (colliderTag)
             {
-                case "Player":
+                case "PlayerObject":
                     playersInRadius.Add(other.gameObject);
                     break;
 
@@ -81,7 +81,7 @@ public class CapturePoint : NetworkBehaviour
             string colliderTag = other.gameObject.tag;
             switch (colliderTag)
             {
-                case "Player":
+                case "PlayerObject":
                     playersInRadius.Remove(other.gameObject);
                     break;
                 default:
@@ -134,8 +134,26 @@ public class CapturePoint : NetworkBehaviour
                     //contested
                     break;
                 case PointStatus.Controlled:
-                    playersInRadius[0].gameObject.GetComponent<PlayerControl>().playerScore += addPointAmount;
-                    yield return new WaitForSeconds(addPointInterval);
+                    //buffer for gameplay balance
+                    yield return new WaitForSeconds(.25f);
+                    if (playersInRadius.Count == 1)
+                    {
+                        playersInRadius[0].gameObject.GetComponent<PlayerControl>().IncrimentPoints(addPointAmount);
+
+                        string team = playersInRadius[0].gameObject.GetComponent<PlayerControl>().GetTeam();
+                        switch (team)
+                        {
+                            case "Red":
+                                statsManager.AddRedPoints(addPointAmount);
+                                break;
+                            case "Blue":
+                                statsManager.AddBluePoints(addPointAmount);
+                                break;
+                            default:
+                                break;
+                        }
+                        yield return new WaitForSeconds(addPointInterval);
+                    }
                     break;
                 case PointStatus.Uncontested:
                     //Uncontested
