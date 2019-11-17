@@ -20,9 +20,9 @@ public class Sword : MonoBehaviour
     {
             if (other.gameObject.tag != null)
             {
-            Debug.Log("hit something");
+               Debug.Log("hit something");
 
-            string colliderTag = other.gameObject.tag;
+                string colliderTag = other.gameObject.tag;
                 switch (colliderTag)
                 {
                     case "Player":
