@@ -19,11 +19,11 @@ public class PlayerControl : NetworkBehaviour
     public string playerTeam;
     [SyncVar]
     public float playerScore;
-    //Health
-    [SyncVar]
-    public float health;
-    [SyncVar]
-    private float currentHealth = 10;
+    ////Health
+    //[SyncVar]
+    //public float health;
+    //[SyncVar]
+    //private float currentHealth = 10;
     //Speed
     public float playerBaseSpeed;
     public float playerShieldSpeed;
@@ -70,6 +70,13 @@ public class PlayerControl : NetworkBehaviour
     public GameObject winImage;
     public GameObject loseImage;
     private Animator anim;
+
+    public Coroutine footstepSounds;
+    private AudioSource audioSource;
+    public AudioClip footSteps;
+    public AudioClip rocketSound;
+    public bool isWalking;
+    private bool isFootStepsPlaying;
     // Start is called before the first frame update
     void Start()
     {
@@ -93,7 +100,7 @@ public class PlayerControl : NetworkBehaviour
     [Command]
     public void CmdVariableSync()
     {
-        currentHealth = health;
+        //currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
         playerRB = GetComponentInChildren<Rigidbody>();
         anim = this.gameObject.GetComponentInChildren<Animator>();
@@ -106,7 +113,7 @@ public class PlayerControl : NetworkBehaviour
     }
     public void VariableSync()
     {
-        currentHealth = health;
+        //currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
         playerRB = GetComponentInChildren<Rigidbody>();
         anim = this.gameObject.GetComponentInChildren<Animator>();
@@ -130,10 +137,10 @@ public class PlayerControl : NetworkBehaviour
             return;
         }
 
-        if (currentHealth <= 0)
-        {
-            StartCoroutine("Death");
-        }
+        //if (currentHealth <= 0)
+        //{
+        //    StartCoroutine("Death");
+        //}
 
         MovementControls();
 
@@ -249,6 +256,22 @@ public class PlayerControl : NetworkBehaviour
             lerpDuration = 0;
         }
     }
+    IEnumerator FootstepSounds()
+    {
+        Debug.Log("PlayingFootsteps");
+        if (isWalking)
+        {
+            audioSource.clip = footSteps;
+            audioSource.Play();
+
+            isFootStepsPlaying = true;
+            yield return new WaitForSeconds(2);
+            isFootStepsPlaying = false;
+        }
+
+        yield return null;
+
+    }
 
     public void MovementControls()
     {
@@ -267,30 +290,58 @@ public class PlayerControl : NetworkBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
+                isWalking = true;
+                if (!isFootStepsPlaying)
+                {
+                    footstepSounds = StartCoroutine(FootstepSounds());
+                }
+
                 //playerRB.velocity = transform.right * playerSpeed;
                 player.transform.position += transform.right * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.A))
             {
+                isWalking = true;
+                if (!isFootStepsPlaying)
+                {
+                    footstepSounds = StartCoroutine(FootstepSounds());
+                }
+
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.right * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.W))
             {
+                isWalking = true;
+                if (!isFootStepsPlaying)
+                {
+                    footstepSounds = StartCoroutine(FootstepSounds());
+                }
+
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += transform.forward * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.S))
             {
+                isWalking = true;
+                if (!isFootStepsPlaying)
+                {
+                    footstepSounds = StartCoroutine(FootstepSounds());
+                }
+
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.forward * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
             else
             {
+                StopCoroutine(FootstepSounds());
+                audioSource.clip = null;
+                isWalking = false;
+                isFootStepsPlaying = false;
                 //anim.SetBool("isWalking", false);
             }           
         }
@@ -302,7 +353,7 @@ public class PlayerControl : NetworkBehaviour
 
     public void ApplyDamage(float damage)
     {
-        currentHealth -= damage;
+        //currentHealth -= damage;
     }
     /// <summary>
     /// Add points to the local player
@@ -312,17 +363,17 @@ public class PlayerControl : NetworkBehaviour
     {
         playerScore += value;
     }
-    public IEnumerator Death()
-    {
-        cantMove = true;
-        currentHealth = health;
-        playerBody.SetActive(false);
-        int rand = Random.Range(0, spawnPoints.Length -1);
-        this.gameObject.transform.position = spawnPoints[rand].transform.position;
-        yield return new WaitForSeconds(deathTime);
-        playerBody.SetActive(true);
-        cantMove = false;
-    }
+    //public IEnumerator Death()
+    //{
+    //    cantMove = true;
+    //    currentHealth = health;
+    //    playerBody.SetActive(false);
+    //    int rand = Random.Range(0, spawnPoints.Length -1);
+    //    this.gameObject.transform.position = spawnPoints[rand].transform.position;
+    //    yield return new WaitForSeconds(deathTime);
+    //    playerBody.SetActive(true);
+    //    cantMove = false;
+    //}
 
     public string GetTeam()
     {
