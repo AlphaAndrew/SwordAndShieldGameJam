@@ -19,11 +19,11 @@ public class PlayerControl : NetworkBehaviour
     public string playerTeam;
     [SyncVar]
     public float playerScore;
-    //Health
-    [SyncVar]
-    public float health;
-    [SyncVar]
-    private float currentHealth = 10;
+    ////Health
+    //[SyncVar]
+    //public float health;
+    //[SyncVar]
+    //private float currentHealth = 10;
     //Speed
     public float playerBaseSpeed;
     public float playerShieldSpeed;
@@ -93,7 +93,7 @@ public class PlayerControl : NetworkBehaviour
     [Command]
     public void CmdVariableSync()
     {
-        currentHealth = health;
+        //currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
         playerRB = GetComponentInChildren<Rigidbody>();
         anim = this.gameObject.GetComponentInChildren<Animator>();
@@ -106,7 +106,7 @@ public class PlayerControl : NetworkBehaviour
     }
     public void VariableSync()
     {
-        currentHealth = health;
+        //currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
         playerRB = GetComponentInChildren<Rigidbody>();
         anim = this.gameObject.GetComponentInChildren<Animator>();
@@ -130,10 +130,10 @@ public class PlayerControl : NetworkBehaviour
             return;
         }
 
-        if (currentHealth <= 0)
-        {
-            StartCoroutine("Death");
-        }
+        //if (currentHealth <= 0)
+        //{
+        //    StartCoroutine("Death");
+        //}
 
         MovementControls();
 
@@ -312,17 +312,17 @@ public class PlayerControl : NetworkBehaviour
     {
         playerScore += value;
     }
-    public IEnumerator Death()
-    {
-        cantMove = true;
-        currentHealth = health;
-        playerBody.SetActive(false);
-        int rand = Random.Range(0, spawnPoints.Length -1);
-        this.gameObject.transform.position = spawnPoints[rand].transform.position;
-        yield return new WaitForSeconds(deathTime);
-        playerBody.SetActive(true);
-        cantMove = false;
-    }
+    //public IEnumerator Death()
+    //{
+    //    cantMove = true;
+    //    currentHealth = health;
+    //    playerBody.SetActive(false);
+    //    int rand = Random.Range(0, spawnPoints.Length -1);
+    //    this.gameObject.transform.position = spawnPoints[rand].transform.position;
+    //    yield return new WaitForSeconds(deathTime);
+    //    playerBody.SetActive(true);
+    //    cantMove = false;
+    //}
 
     public string GetTeam()
     {
