@@ -48,7 +48,7 @@ public class Sword : MonoBehaviour
                         //player boucnes back
                         playerScript.hitSomeone = true;
                         //target bounces back
-                        other.gameObject.GetComponentInParent<PlayerControl>().isBouncing = true;
+                        other.gameObject.GetComponentInParent<PlayerControl>().BouncePrep();
                     }
                     else //normal attack
                     {

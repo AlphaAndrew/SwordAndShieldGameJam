@@ -11,43 +11,59 @@ public class PlayerControl : NetworkBehaviour
 {
     //Player
     private Rigidbody playerRB;
+    [SyncVar]
     private GameObject player;
     [SyncVar]
     public int playerNum = 0;
+    [SyncVar]
     public string playerTeam;
+    [SyncVar]
     public float playerScore;
     //Health
+    [SyncVar]
     public float health;
+    [SyncVar]
     private float currentHealth;
     //Speed
     public float playerBaseSpeed;
     public float playerShieldSpeed;
     private float playerSpeed;
     //Shield
+    [SyncVar]
     public GameObject shield;
+    [SyncVar]
     public GameObject sideShieldPos;
+    [SyncVar]
     public GameObject frontShieldPos;
     //Charge
     public float chargeMultiplier;
     public float chargeMinLimit;
     public float chargeMaxLimit;
+    [SyncVar]
     public bool isCharging = false;
     public float chargeSpeed = 1f;
+    [SyncVar]
     private float chargeTimer;
     //Lerp
+    [SyncVar]
     private Vector3 lerpStartPos;
+    [SyncVar]
     private Vector3 lerpEndPos;
+    [SyncVar]
     private float lerpDistance;
+    [SyncVar]
     private float lerpStartTime;
+    [SyncVar]
     private float lerpDuration;
     //Bounce
+    [SyncVar]
     public bool hitSomeone = false;
+    [SyncVar]
     public bool isBouncing = false;
     public float bounceMultiplier;
-
     public Camera camera;
     private Renderer rend;
-
+    public bool cantMove;
    
     // Start is called before the first frame update
     void Start()
@@ -67,72 +83,82 @@ public class PlayerControl : NetworkBehaviour
         
         if (isLocalPlayer)
         {
-            rend = GetComponentInChildren<Renderer>();
-            if(playerTeam == "Red")
-            {
-                rend.material.color = Color.red;
-            }
-            playerRB = GetComponentInChildren<Rigidbody>();
-
-            player = this.gameObject;
-            playerSpeed = playerBaseSpeed;
-            
-
-
-            playerTeam = "Red";
-            shield.GetComponent<BoxCollider>().enabled = false;
+            CmdVariableSync();
             return;
         }
         camera.enabled = false;
+    }
+    [Command]
+    public void CmdVariableSync()
+    {
+        rend = GetComponentInChildren<Renderer>();
+        if (playerTeam == "Red")
+        {
+            rend.material.color = Color.red;
+        }
+        playerRB = GetComponentInChildren<Rigidbody>();
+
+        player = this.gameObject;
+        playerSpeed = playerBaseSpeed;
+
+        playerTeam = "Red";
+        shield.GetComponent<BoxCollider>().enabled = false;
+        return;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isLocalPlayer)
+        if (!isLocalPlayer)
         {
+            return;
+        }
 
-            if (currentHealth <= 0)
-            {
-                //Death
-            }
+        if (currentHealth <= 0)
+        {
+            //Death
+        }
+        if (!cantMove)
+        {
             MovementControls();
-            //Normal Attack
-            //Charge Attack
-            if (Input.GetMouseButton(0))
+        }
+
+        //Normal Attack
+        //Charge Attack
+        if (Input.GetMouseButton(0))
+        {
+            cantMove = true;
+            if (chargeTimer < chargeMaxLimit)
             {
-                if (chargeTimer < chargeMaxLimit)
-                {
-                    chargeTimer += Time.deltaTime;
-                }
+                chargeTimer += Time.deltaTime;
             }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                if(chargeTimer < chargeMinLimit) { return; }
-                //Attack
-                ChargePrep();
-                //isCharging = true;
-                //playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
-                chargeTimer = 0;
-            }
-            if (isCharging)
-            {
-                ChargeAttack();
-            }
-            if (isBouncing)
-            {
-                BounceBack();
-            }
-            if (Input.GetMouseButton(1))
-            {
-                //Shield Up
-                ShieldUp();
-            }
-            else if(Input.GetMouseButtonUp(1))
-            {
-                ShieldDown();
-            }
-        }        
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            if(chargeTimer < chargeMinLimit) { return; }
+            //Attack
+            ChargePrep();
+            //isCharging = true;
+            //playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
+            chargeTimer = 0;
+        }
+        if (isCharging)
+        {
+            ChargeAttack();
+        }
+        if (isBouncing)
+        {
+            BounceBack();
+        }
+        if (Input.GetMouseButton(1))
+        {
+            //Shield Up
+            ShieldUp();
+        }
+        else if(Input.GetMouseButtonUp(1))
+        {
+            ShieldDown();
+            }        
     }
 
     //Shield to front of player
@@ -171,14 +197,7 @@ public class PlayerControl : NetworkBehaviour
         }
         else if (hitSomeone)
         {
-            Debug.Log("Hit");
-            lerpStartPos = player.transform.position;
-            lerpEndPos = player.transform.position + -transform.forward * bounceMultiplier;
-            isBouncing = true;
-            lerpStartTime = Time.time;
-            lerpDistance = Vector3.Distance(player.transform.position, player.transform.position + -transform.forward * bounceMultiplier);
-            isCharging = false;
-            hitSomeone = false;
+            BouncePrep();
         }
         else
         {
@@ -186,6 +205,36 @@ public class PlayerControl : NetworkBehaviour
             lerpDuration = 0;
         }
     }
+    public void BouncePrep()
+    {
+        Debug.Log("BouncePrep");
+        lerpStartPos = player.transform.position;
+        lerpEndPos = player.transform.position + -transform.forward * bounceMultiplier;        
+        lerpStartTime = Time.time;
+        lerpDistance = Vector3.Distance(player.transform.position, player.transform.position + -transform.forward * bounceMultiplier);
+        isBouncing = true;
+        isCharging = false;
+        hitSomeone = false;
+    }
+    public void BounceBack()
+    {
+        Debug.Log("Bounce");
+        //Bounce
+        if (lerpDuration < 1 && !hitSomeone)
+        {
+
+            lerpDuration = (Time.time - lerpStartTime) * chargeSpeed / lerpDistance;
+            player.transform.position = Vector3.Lerp(lerpStartPos, lerpEndPos, lerpDuration);
+            Debug.Log("start: " + lerpStartPos + " End: " + lerpEndPos);
+        }
+        else
+        {
+            Debug.Log("Bouncing false");
+            isBouncing = false;
+            lerpDuration = 0;
+        }
+    }
+
     public void MovementControls()
     {
         Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -225,24 +274,7 @@ public class PlayerControl : NetworkBehaviour
         player.transform.Rotate(0, -y, 0);
         //Camera.main.transform.Rotate(-x, 0, 0);
     }
-    public void BounceBack()
-    {
-        //Bounce
-        if (lerpDuration < 1 && !hitSomeone)
-        {
 
-            lerpDuration = (Time.time - lerpStartTime) * chargeSpeed / lerpDistance;
-            player.transform.position = Vector3.Lerp(lerpStartPos, lerpEndPos, lerpDuration);
-            Debug.Log("start: " + lerpStartPos + " End: " + lerpEndPos);
-        }
-        else
-        {
-            Debug.Log("Bouncing false");
-            isBouncing = false;
-            lerpDuration = 0;
-        }
-    }
-    
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
