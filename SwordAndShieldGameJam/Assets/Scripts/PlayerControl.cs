@@ -70,6 +70,13 @@ public class PlayerControl : NetworkBehaviour
     public GameObject winImage;
     public GameObject loseImage;
     private Animator anim;
+
+    public Coroutine footstepSounds;
+    private AudioSource audioSource;
+    public AudioClip footSteps;
+    public AudioClip rocketSound;
+    public bool isWalking;
+    private bool isFootStepsPlaying;
     // Start is called before the first frame update
     void Start()
     {
@@ -249,6 +256,22 @@ public class PlayerControl : NetworkBehaviour
             lerpDuration = 0;
         }
     }
+    IEnumerator FootstepSounds()
+    {
+        Debug.Log("PlayingFootsteps");
+        if (isWalking)
+        {
+            audioSource.clip = footSteps;
+            audioSource.Play();
+
+            isFootStepsPlaying = true;
+            yield return new WaitForSeconds(2);
+            isFootStepsPlaying = false;
+        }
+
+        yield return null;
+
+    }
 
     public void MovementControls()
     {
@@ -267,30 +290,58 @@ public class PlayerControl : NetworkBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
+                isWalking = true;
+                if (!isFootStepsPlaying)
+                {
+                    footstepSounds = StartCoroutine(FootstepSounds());
+                }
+
                 //playerRB.velocity = transform.right * playerSpeed;
                 player.transform.position += transform.right * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.A))
             {
+                isWalking = true;
+                if (!isFootStepsPlaying)
+                {
+                    footstepSounds = StartCoroutine(FootstepSounds());
+                }
+
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.right * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.W))
             {
+                isWalking = true;
+                if (!isFootStepsPlaying)
+                {
+                    footstepSounds = StartCoroutine(FootstepSounds());
+                }
+
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += transform.forward * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.S))
             {
+                isWalking = true;
+                if (!isFootStepsPlaying)
+                {
+                    footstepSounds = StartCoroutine(FootstepSounds());
+                }
+
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.forward * playerSpeed;
                 //anim.SetBool("isWalking", true);
             }
             else
             {
+                StopCoroutine(FootstepSounds());
+                audioSource.clip = null;
+                isWalking = false;
+                isFootStepsPlaying = false;
                 //anim.SetBool("isWalking", false);
             }           
         }
