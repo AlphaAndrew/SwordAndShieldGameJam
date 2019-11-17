@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1406898134}
   - component: {fileID: 4359494327530355727}
   - component: {fileID: 874113937401791520}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sword
   m_TagString: Sword
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ BoxCollider:
   m_GameObject: {fileID: 1205645550076790039}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.49, y: 2.04, z: 1.57}
   m_Center: {x: 0, y: 0, z: 0}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 6207332006686472110}
   - component: {fileID: 5788955521709460480}
   - component: {fileID: 4949417909500238497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield
   m_TagString: Shield
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 2074739282385020983}
   - component: {fileID: 4672181849366361413}
   - component: {fileID: 765876864726055808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Player
   m_Icon: {fileID: 0}
