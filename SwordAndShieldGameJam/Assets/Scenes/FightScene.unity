@@ -1944,7 +1944,7 @@ PrefabInstance:
     - target: {fileID: 5372033181005589117, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.55
+      value: 1.26
       objectReference: {fileID: 0}
     - target: {fileID: 5372033181005589117, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
@@ -2096,15 +2096,15 @@ PrefabInstance:
       propertyPath: addPointInterval
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1734021259, guid: 5fef408526e25f449911075bff95cf74, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4745768491976889865, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e41a8c6fb40620e4b8018d901626e597, type: 2}
+    - target: {fileID: 1734021259, guid: 5fef408526e25f449911075bff95cf74, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1734021259, guid: 5fef408526e25f449911075bff95cf74, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5fef408526e25f449911075bff95cf74, type: 3}
