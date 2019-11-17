@@ -20,12 +20,16 @@ public class StatsManager : NetworkBehaviour
 
     private float updateInterval = .25f;
     private float updateIntervalTimer = 0;
-    
+
+
+    public int playerNum = 0;
+    public string team;
     void Start()
     {
+        StartCoroutine(FillPlayerList());
         if (isServer)
         {
-            StartCoroutine(FillPlayerList());
+
            // StartCoroutine(GetScores());
            
         }
@@ -72,10 +76,12 @@ public class StatsManager : NetworkBehaviour
     [ClientRpc]
     public void RpcEndGame()
     {
+        Debug.Log("EndGame");
         foreach(GameObject play in players)
         {
             if (redTeamScore > blueTeamScore)
             {
+                Debug.Log("redwin");
                 if (play.GetComponent<PlayerControl>().playerTeam == "Red")
                 {
                     play.GetComponent<PlayerControl>().Win();
@@ -103,7 +109,25 @@ public class StatsManager : NetworkBehaviour
     {
         yield return new WaitForEndOfFrame();
         players = GameObject.FindGameObjectsWithTag("PlayerObject");
+        foreach(GameObject play in players)
+        {
+            play.GetComponent<PlayerControl>().playerTeam = GetTeam();
+            playerNum++;
+        }
         yield return null;
+    }
+
+    public string GetTeam()
+    {       
+        if (playerNum == 0)
+        {
+            team = "Red";           
+        }
+        else if (playerNum == 1)
+        {
+            team = "Blue";
+        }
+        return team;
     }
 
     //probably shouldnt loop through players every frame so I commented for now

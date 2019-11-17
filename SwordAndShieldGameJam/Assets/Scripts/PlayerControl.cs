@@ -16,8 +16,6 @@ public class PlayerControl : NetworkBehaviour
     [SyncVar]
     public GameObject playerBody;
     [SyncVar]
-    public int playerNum = 0;
-    [SyncVar]
     public string playerTeam;
     [SyncVar]
     public float playerScore;
@@ -25,7 +23,7 @@ public class PlayerControl : NetworkBehaviour
     [SyncVar]
     public float health;
     [SyncVar]
-    private float currentHealth;
+    private float currentHealth = 10;
     //Speed
     public float playerBaseSpeed;
     public float playerShieldSpeed;
@@ -64,7 +62,7 @@ public class PlayerControl : NetworkBehaviour
     public bool isBouncing = false;
     public float bounceMultiplier;
     public Camera camera;
-    private Renderer rend;
+    public Renderer rend;
     public bool cantMove;
     public GameObject[] spawnPoints;
     public float deathTime;
@@ -76,20 +74,8 @@ public class PlayerControl : NetworkBehaviour
     void Start()
     {
 
-        if (playerNum == 0)
-        {
-            playerTeam = "Red";
-            
-            playerNum++;
-        }
-        else if (playerNum == 1)
-        {
-            playerTeam = "Blue";
-            playerNum++;
-        }
-        
         if (isLocalPlayer)
-        {
+        {            
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             if (isServer)
@@ -109,16 +95,11 @@ public class PlayerControl : NetworkBehaviour
     {
         currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
-        if (playerTeam == "Red")
-        {
-            rend.material.color = Color.red;
-        }
         playerRB = GetComponentInChildren<Rigidbody>();
-        anim = this.gameObject.GetComponent<Animator>();
+        anim = this.gameObject.GetComponentInChildren<Animator>();
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
         //playerBody = GameObject.FindGameObjectWithTag("Player");
-        playerTeam = "Red";
         shield.GetComponent<BoxCollider>().enabled = false;
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
         return;
@@ -127,16 +108,11 @@ public class PlayerControl : NetworkBehaviour
     {
         currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
-        if (playerTeam == "Red")
-        {
-            rend.material.color = Color.red;
-        }
         playerRB = GetComponentInChildren<Rigidbody>();
-        anim = this.gameObject.GetComponent<Animator>();
+        anim = this.gameObject.GetComponentInChildren<Animator>();
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
         //playerBody = GameObject.FindGameObjectWithTag("Player");
-        playerTeam = "Red";
         shield.GetComponent<BoxCollider>().enabled = false;
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
         return;
@@ -144,6 +120,11 @@ public class PlayerControl : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (playerTeam == "Red")
+        {
+            Debug.Log(player + "Red");
+            rend.material.color = Color.red;
+        }
         if (!isLocalPlayer)
         {
             return;
@@ -288,29 +269,29 @@ public class PlayerControl : NetworkBehaviour
             {
                 //playerRB.velocity = transform.right * playerSpeed;
                 player.transform.position += transform.right * playerSpeed;
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
-            else if(Input.GetKey(KeyCode.A))
+            if(Input.GetKey(KeyCode.A))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.right * playerSpeed;
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
-            else if(Input.GetKey(KeyCode.W))
+            if(Input.GetKey(KeyCode.W))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += transform.forward * playerSpeed;
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
-            else if(Input.GetKey(KeyCode.S))
+            if(Input.GetKey(KeyCode.S))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.forward * playerSpeed;
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
             else
             {
-                anim.SetBool("isWalking", false);
+                //anim.SetBool("isWalking", false);
             }           
         }
         //float x = Input.GetAxis("Mouse Y");
