@@ -14,7 +14,7 @@ public class PlayerControl : NetworkBehaviour
     [SyncVar]
     private GameObject player;
     [SyncVar]
-    private GameObject playerBody;
+    public GameObject playerBody;
     [SyncVar]
     public int playerNum = 0;
     [SyncVar]
@@ -105,7 +105,7 @@ public class PlayerControl : NetworkBehaviour
 
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
-        playerBody = GameObject.FindGameObjectWithTag("Player");
+        //playerBody = GameObject.FindGameObjectWithTag("Player");
         playerTeam = "Red";
         shield.GetComponent<BoxCollider>().enabled = false;
         return;
