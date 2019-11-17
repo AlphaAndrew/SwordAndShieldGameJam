@@ -108,7 +108,6 @@ public class PlayerControl : NetworkBehaviour
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
         //playerBody = GameObject.FindGameObjectWithTag("Player");
-        playerTeam = "Red";
         shield.GetComponent<BoxCollider>().enabled = false;
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
         return;
@@ -126,7 +125,6 @@ public class PlayerControl : NetworkBehaviour
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
         //playerBody = GameObject.FindGameObjectWithTag("Player");
-        playerTeam = "Red";
         shield.GetComponent<BoxCollider>().enabled = false;
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
         return;
