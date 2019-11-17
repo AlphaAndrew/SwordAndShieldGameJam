@@ -82,7 +82,8 @@ public class PlayerControl : NetworkBehaviour
     {
 
         if (isLocalPlayer)
-        {            
+        {
+            audioSource = GetComponent<AudioSource>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             if (isServer)
@@ -211,6 +212,8 @@ public class PlayerControl : NetworkBehaviour
     //Charge Attack Implementation
     public void ChargeAttack()
     {
+       // audioSource.clip = rocketSound;
+       // audioSource.Play();
         //Attack
         if (lerpDuration < 1 && !hitSomeone)
         {
@@ -258,17 +261,16 @@ public class PlayerControl : NetworkBehaviour
     }
     IEnumerator FootstepSounds()
     {
-        Debug.Log("PlayingFootsteps");
+        yield return new WaitForEndOfFrame();
         if (isWalking)
         {
             audioSource.clip = footSteps;
             audioSource.Play();
-
             isFootStepsPlaying = true;
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(2f);
             isFootStepsPlaying = false;
-        }
 
+        }
         yield return null;
 
     }
