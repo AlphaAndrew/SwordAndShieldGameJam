@@ -14,6 +14,8 @@ public class PlayerControl : NetworkBehaviour
     [SyncVar]
     private GameObject player;
     [SyncVar]
+    private GameObject playerBody;
+    [SyncVar]
     public int playerNum = 0;
     [SyncVar]
     public string playerTeam;
@@ -64,7 +66,8 @@ public class PlayerControl : NetworkBehaviour
     public Camera camera;
     private Renderer rend;
     public bool cantMove;
-   
+    public GameObject[] spawnPoints;
+    public float deathTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -102,7 +105,7 @@ public class PlayerControl : NetworkBehaviour
 
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
-
+        playerBody = GameObject.FindGameObjectWithTag("Player");
         playerTeam = "Red";
         shield.GetComponent<BoxCollider>().enabled = false;
         return;
@@ -290,10 +293,16 @@ public class PlayerControl : NetworkBehaviour
     {
         playerScore += value;
     }
-    public void Death()
+    public IEnumerator Death()
     {
+        cantMove = true;
         currentHealth = health;
-        //Respawn
+        playerBody.SetActive(false);
+        int rand = Random.Range(0, spawnPoints.Length);
+        this.gameObject.transform.position = spawnPoints[rand].transform.position;
+        yield return new WaitForSeconds(deathTime);
+        playerBody.SetActive(true);
+        cantMove = false;
     }
 
     public string GetTeam()

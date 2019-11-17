@@ -238,6 +238,8 @@ MonoBehaviour:
   bounceMultiplier: 5
   camera: {fileID: 9060121227453688276}
   cantMove: 0
+  spawnPoints: []
+  deathTime: 3
 --- !u!65 &5495207482989483746
 BoxCollider:
   m_ObjectHideFlags: 0
