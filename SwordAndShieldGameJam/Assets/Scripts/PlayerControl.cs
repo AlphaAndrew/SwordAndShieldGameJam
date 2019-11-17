@@ -12,7 +12,7 @@ public class PlayerControl : NetworkBehaviour
     //Player
     private Rigidbody playerRB;
     private GameObject player;
-    private string playerTeam;
+    public string playerTeam;
     public float playerScore;
     //Health
     public float health;
@@ -207,6 +207,14 @@ public class PlayerControl : NetworkBehaviour
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
+    }
+    /// <summary>
+    /// Add points to the local player
+    /// </summary>
+    /// <param name="value"></param>
+    public void IncrimentPoints(float value)
+    {
+        playerScore += value;
     }
     public void Death()
     {
