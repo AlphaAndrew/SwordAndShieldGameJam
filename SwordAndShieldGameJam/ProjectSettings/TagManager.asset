@@ -12,7 +12,6 @@ TagManager:
   - PlayerObject
   - ParentPref
   - LobbyPlayer
-  - Camera
   layers:
   - Default
   - TransparentFX
@@ -22,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - Combat
+  - PostProcesssing
   - 
   - 
   - 
