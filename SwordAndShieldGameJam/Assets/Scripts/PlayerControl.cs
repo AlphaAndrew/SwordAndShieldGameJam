@@ -48,9 +48,7 @@ public class PlayerControl : NetworkBehaviour
     public Camera camera;
     private Renderer rend;
 
-    //Coroutine accumulatePoints;
-    //see capture point "Do Battle" 
-
+   
     // Start is called before the first frame update
     void Start()
     {
