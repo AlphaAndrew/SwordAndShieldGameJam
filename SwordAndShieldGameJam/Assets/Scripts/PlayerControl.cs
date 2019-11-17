@@ -108,15 +108,15 @@ public class PlayerControl : NetworkBehaviour
             else if (Input.GetMouseButtonUp(0))
             {
                 //Attack
-                //ChargePrep();
+                ChargePrep();
                 //isCharging = true;
-                playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
+                //playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
                 chargeTimer = 0;
             }
-            //if (isCharging)
-            //{
-            //    ChargeAttack();
-            //}
+            if (isCharging)
+            {
+                ChargeAttack();
+            }
             if (isBouncing)
             {
                 BounceBack();
