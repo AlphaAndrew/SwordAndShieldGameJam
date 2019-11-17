@@ -105,7 +105,27 @@ public class StatsManager : NetworkBehaviour
     {
         yield return new WaitForEndOfFrame();
         players = GameObject.FindGameObjectsWithTag("PlayerObject");
+        foreach(GameObject play in players)
+        {
+            play.GetComponent<PlayerControl>().playerTeam = GetTeam();
+        }
         yield return null;
+    }
+    int playerNum = 0;
+    string team;
+    public string GetTeam()
+    {       
+        if (playerNum == 0)
+        {
+            team = "Red";
+            playerNum++;
+        }
+        else if (playerNum == 1)
+        {
+            team = "Blue";
+            playerNum++;
+        }
+        return team;
     }
 
     //probably shouldnt loop through players every frame so I commented for now
