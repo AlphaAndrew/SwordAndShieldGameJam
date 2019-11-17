@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-
+using UnityEngine.UI;
 /// <summary>
 /// Player control script
 /// Includes score, health, movement, attack, and block methods
@@ -68,6 +68,9 @@ public class PlayerControl : NetworkBehaviour
     public bool cantMove;
     public GameObject[] spawnPoints;
     public float deathTime;
+    public GameObject canvas;
+    public GameObject winImage;
+    public GameObject loseImage;
     // Start is called before the first frame update
     void Start()
     {
@@ -334,5 +337,19 @@ public class PlayerControl : NetworkBehaviour
     public string GetTeam()
     {
         return playerTeam;
+    }
+
+    public void Win()
+    {
+        cantMove = true;
+        canvas.SetActive(true);
+        winImage.SetActive(true);
+    }
+
+    public void Lose()
+    {
+        cantMove = true;
+        canvas.SetActive(true);
+        loseImage.SetActive(true);
     }
 }
