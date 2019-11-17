@@ -79,6 +79,7 @@ public class PlayerControl : NetworkBehaviour
         if (isLocalPlayer)
         {
             //GameObject.Find("Canvas").GetComponent<StatsManager>().GetTeam();
+            
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             if (isServer)

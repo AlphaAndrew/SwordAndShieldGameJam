@@ -20,7 +20,10 @@ public class StatsManager : NetworkBehaviour
 
     private float updateInterval = .25f;
     private float updateIntervalTimer = 0;
-    
+
+
+    public int playerNum = 0;
+    public string team;
     void Start()
     {
         if (isServer)
@@ -108,22 +111,20 @@ public class StatsManager : NetworkBehaviour
         foreach(GameObject play in players)
         {
             play.GetComponent<PlayerControl>().playerTeam = GetTeam();
+            playerNum++;
         }
         yield return null;
     }
-    int playerNum = 0;
-    string team;
+
     public string GetTeam()
     {       
         if (playerNum == 0)
         {
-            team = "Red";
-            playerNum++;
+            team = "Red";           
         }
         else if (playerNum == 1)
         {
             team = "Blue";
-            playerNum++;
         }
         return team;
     }
