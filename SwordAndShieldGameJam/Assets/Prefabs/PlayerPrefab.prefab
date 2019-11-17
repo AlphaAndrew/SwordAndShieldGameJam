@@ -224,8 +224,8 @@ MonoBehaviour:
   playerTeam: 
   playerScore: 0
   health: 10
-  playerBaseSpeed: 0.25
-  playerShieldSpeed: 0.1
+  playerBaseSpeed: 0.2
+  playerShieldSpeed: 0.05
   shield: {fileID: 355950269486843634}
   sideShieldPos: {fileID: 8072172193484585115}
   frontShieldPos: {fileID: 3382413834376245715}
@@ -238,6 +238,7 @@ MonoBehaviour:
   isBouncing: 0
   bounceMultiplier: 5
   camera: {fileID: 9060121227453688276}
+  cantMove: 0
 --- !u!65 &5495207482989483746
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -413,7 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalDamage: 0
-  chargedDamage: 0
+  chargedDamage: 10
 --- !u!1 &3382413834376245715
 GameObject:
   m_ObjectHideFlags: 0

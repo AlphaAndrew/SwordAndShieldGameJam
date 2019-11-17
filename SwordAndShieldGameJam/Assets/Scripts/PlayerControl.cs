@@ -116,12 +116,10 @@ public class PlayerControl : NetworkBehaviour
 
         if (currentHealth <= 0)
         {
-            //Death
+            Death();
         }
-        if (!cantMove)
-        {
-            MovementControls();
-        }
+
+        MovementControls();
 
         //Normal Attack
         //Charge Attack
@@ -249,27 +247,29 @@ public class PlayerControl : NetworkBehaviour
         //{
         //    playerRB.AddRelativeForce(m_Input * playerSpeed, ForceMode.VelocityChange);
         //}
-        if (Input.GetKey(KeyCode.D))
+        if (!cantMove)
         {
-            //playerRB.velocity = transform.right * playerSpeed;
-            player.transform.position += transform.right * playerSpeed;
+            if (Input.GetKey(KeyCode.D))
+            {
+                //playerRB.velocity = transform.right * playerSpeed;
+                player.transform.position += transform.right * playerSpeed;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                //playerRB.velocity = -transform.right * playerSpeed;
+                player.transform.position += -transform.right * playerSpeed;
+            }
+            if (Input.GetKey(KeyCode.W))
+            {
+                //playerRB.velocity = -transform.right * playerSpeed;
+                player.transform.position += transform.forward * playerSpeed;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                //playerRB.velocity = -transform.right * playerSpeed;
+                player.transform.position += -transform.forward * playerSpeed;
+            }
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            //playerRB.velocity = -transform.right * playerSpeed;
-            player.transform.position += -transform.right * playerSpeed;
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            //playerRB.velocity = -transform.right * playerSpeed;
-            player.transform.position += transform.forward * playerSpeed;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            //playerRB.velocity = -transform.right * playerSpeed;
-            player.transform.position += -transform.forward * playerSpeed;
-        }
-
         //float x = Input.GetAxis("Mouse Y");
         float y = -Input.GetAxis("Mouse X");
         player.transform.Rotate(0, -y, 0);
@@ -290,6 +290,7 @@ public class PlayerControl : NetworkBehaviour
     }
     public void Death()
     {
+        currentHealth = health;
         //Respawn
     }
 
