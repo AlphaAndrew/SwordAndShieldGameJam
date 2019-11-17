@@ -12,6 +12,7 @@ public class PlayerControl : NetworkBehaviour
     //Player
     private Rigidbody playerRB;
     private GameObject player;
+    [SyncVar]
     public int playerNum = 0;
     public string playerTeam;
     public float playerScore;
