@@ -154,6 +154,7 @@ public class PlayerControl : NetworkBehaviour
             {
                 chargeTimer += Time.deltaTime;
             }
+            anim.SetBool("chargeAnimBool", true);
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -171,7 +172,10 @@ public class PlayerControl : NetworkBehaviour
         if (isCharging)
         {
             ChargeAttack();
+            
         }
+            
+
         if (isBouncing)
         {
             BounceBack();
@@ -228,6 +232,7 @@ public class PlayerControl : NetworkBehaviour
         }
         else
         {
+            anim.SetBool("chargeAnimBool", false);
             isCharging = false;
             lerpDuration = 0;
         }
@@ -241,6 +246,7 @@ public class PlayerControl : NetworkBehaviour
         lerpDistance = Vector3.Distance(player.transform.position, player.transform.position + -transform.forward * bounceMultiplier);
         isBouncing = true;
         isCharging = false;
+        anim.SetBool("chargeAnimBool", false);
         hitSomeone = false;
     }
     public void BounceBack()
