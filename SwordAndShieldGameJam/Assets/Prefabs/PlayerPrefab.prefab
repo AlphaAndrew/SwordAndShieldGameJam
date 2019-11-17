@@ -246,6 +246,7 @@ MonoBehaviour:
   hitSomeone: 0
   isBouncing: 0
   bounceMultiplier: 5
+  camera: {fileID: 9060121227453688276}
 --- !u!54 &1297903607004912512
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -532,7 +533,7 @@ GameObject:
   - component: {fileID: 2862219993986672994}
   m_Layer: 0
   m_Name: PlayerCam
-  m_TagString: Untagged
+  m_TagString: Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

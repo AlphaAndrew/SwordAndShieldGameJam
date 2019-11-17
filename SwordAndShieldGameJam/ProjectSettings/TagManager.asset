@@ -12,6 +12,7 @@ TagManager:
   - PlayerObject
   - ParentPref
   - LobbyPlayer
+  - Camera
   layers:
   - Default
   - TransparentFX

@@ -42,6 +42,8 @@ public class PlayerControl : NetworkBehaviour
     public bool isBouncing = false;
     public float bounceMultiplier;
 
+    public Camera camera;
+
     //Coroutine accumulatePoints;
     //see capture point "Do Battle" 
 
@@ -59,7 +61,9 @@ public class PlayerControl : NetworkBehaviour
 
 
             playerTeam = "Red";
+            return;
         }
+        camera.enabled = false;
     }
 
     // Update is called once per frame
