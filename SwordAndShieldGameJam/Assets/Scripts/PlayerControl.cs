@@ -300,7 +300,7 @@ public class PlayerControl : NetworkBehaviour
 
                 //playerRB.velocity = transform.right * playerSpeed;
                 player.transform.position += transform.right * playerSpeed;
-                //anim.SetBool("isWalking", true);
+                anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.A))
             {
@@ -312,7 +312,7 @@ public class PlayerControl : NetworkBehaviour
 
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.right * playerSpeed;
-                //anim.SetBool("isWalking", true);
+                anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.W))
             {
@@ -324,7 +324,7 @@ public class PlayerControl : NetworkBehaviour
 
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += transform.forward * playerSpeed;
-                //anim.SetBool("isWalking", true);
+                anim.SetBool("isWalking", true);
             }
             if(Input.GetKey(KeyCode.S))
             {
@@ -336,16 +336,16 @@ public class PlayerControl : NetworkBehaviour
 
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.forward * playerSpeed;
-                //anim.SetBool("isWalking", true);
+                anim.SetBool("isWalking", true);
             }
-            else
+            if(!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
             {
                 StopCoroutine(FootstepSounds());
                 audioSource.clip = null;
                 isWalking = false;
                 isFootStepsPlaying = false;
-                //anim.SetBool("isWalking", false);
-            }           
+                anim.SetBool("isWalking", false);
+            }         
         }
         //float x = Input.GetAxis("Mouse Y");
         float y = -Input.GetAxis("Mouse X");
