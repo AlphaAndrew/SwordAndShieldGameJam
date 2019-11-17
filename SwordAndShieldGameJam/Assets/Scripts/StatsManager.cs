@@ -66,8 +66,8 @@ public class StatsManager : NetworkBehaviour
     [ClientRpc]
     public void RpcUpdateScoreText()
     {
-        //blueScoreText.text = "Blue Score: "+ blueTeamScore;
-        //redScoreText.text = "Red Score: " + redTeamScore;
+        blueScoreText.text = "Blue Score: "+ blueTeamScore;
+        redScoreText.text = "Red Score: " + redTeamScore;
     }
     [ClientRpc]
     public void RpcEndGame()
