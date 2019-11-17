@@ -87,6 +87,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4861566730138280126}
+  - component: {fileID: 8835417588190388759}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -109,3 +110,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &8835417588190388759
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8443291584248222381}
+  m_Material: {fileID: 13400000, guid: 5be51f0342dab2a459b964234e26d0b0, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4068373912626513877, guid: 1618a40005b9d5d49bafcb562072a0f5, type: 3}

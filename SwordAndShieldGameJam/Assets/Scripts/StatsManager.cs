@@ -16,6 +16,7 @@ public class StatsManager : NetworkBehaviour
     public Text redScoreText;
     public GameObject[] players;
     public bool activeBattle;
+    public int finalScore;
 
     private float updateInterval = .25f;
     private float updateIntervalTimer = 0;
@@ -44,6 +45,10 @@ public class StatsManager : NetworkBehaviour
             RpcUpdateScoreText();
             
             updateIntervalTimer = 0;
+            if(redTeamScore >= finalScore || blueTeamScore >= finalScore)
+            {
+                RpcEndGame();
+            }
         }
             
         
@@ -64,7 +69,35 @@ public class StatsManager : NetworkBehaviour
         blueScoreText.text = "Blue Score: "+ blueTeamScore;
         redScoreText.text = "Red Score: " + redTeamScore;
     }
+    [ClientRpc]
+    public void RpcEndGame()
+    {
+        foreach(GameObject play in players)
+        {
+            if (redTeamScore > blueTeamScore)
+            {
+                if (play.GetComponent<PlayerControl>().playerTeam == "Red")
+                {
+                    play.GetComponent<PlayerControl>().Win();
+                }
+                else
+                {
+                    play.GetComponent<PlayerControl>().Lose();
+                }
+            }else if (blueTeamScore > redTeamScore)
+            {
+                if (play.GetComponent<PlayerControl>().playerTeam == "Blue")
+                {
+                    play.GetComponent<PlayerControl>().Win();
+                }
+                else
+                {
+                    play.GetComponent<PlayerControl>().Lose();
+                }
+            }
 
+        }
+    }
     //get all active players
     public IEnumerator FillPlayerList()
     {
