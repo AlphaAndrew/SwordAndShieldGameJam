@@ -184,26 +184,37 @@ public class PlayerControl : NetworkBehaviour
     }
     public void MovementControls()
     {
-        if (Input.GetKey(KeyCode.D))
+        Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        if (m_Input.sqrMagnitude > 1)
         {
-            //playerRB.velocity = transform.right * playerSpeed;
-            player.transform.position += transform.right * playerSpeed;
+            m_Input.Normalize();
         }
-        if (Input.GetKey(KeyCode.A))
+
+        if (playerRB.velocity.magnitude < 10f)
         {
-            //playerRB.velocity = -transform.right * playerSpeed;
-            player.transform.position += -transform.right * playerSpeed;
+            playerRB.AddRelativeForce(m_Input * playerSpeed, ForceMode.VelocityChange);
         }
-        if (Input.GetKey(KeyCode.W))
-        {
-            //playerRB.velocity = -transform.right * playerSpeed;
-            player.transform.position += transform.forward * playerSpeed;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            //playerRB.velocity = -transform.right * playerSpeed;
-            player.transform.position += -transform.forward * playerSpeed;
-        }
+        //if (Input.GetKey(KeyCode.D))
+        //{
+        //    //playerRB.velocity = transform.right * playerSpeed;
+        //    player.transform.position += transform.right * playerSpeed;
+        //}
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    //playerRB.velocity = -transform.right * playerSpeed;
+        //    player.transform.position += -transform.right * playerSpeed;
+        //}
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    //playerRB.velocity = -transform.right * playerSpeed;
+        //    player.transform.position += transform.forward * playerSpeed;
+        //}
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    //playerRB.velocity = -transform.right * playerSpeed;
+        //    player.transform.position += -transform.forward * playerSpeed;
+        //}
 
         //float x = Input.GetAxis("Mouse Y");
         float y = -Input.GetAxis("Mouse X");
