@@ -59,31 +59,31 @@ public class SceneChanger : NetworkBehaviour
     }
     public void Back()
     {
-        if (inLobby)
-        {
-            play.SetActive(false);
-            creditsButton.SetActive(false);
-            joinFieldParent.SetActive(true);
-            host.SetActive(true);
-            join.SetActive(true);
-            back.SetActive(true);
-            if (isHost)
-            {
-                manager.StopHost();
-            }else if (!isHost)
-            {
-                manager.StopClient();
-            }
-        }
-        else
-        {
+        //if (inLobby)
+        //{
+        //    play.SetActive(false);
+        //    creditsButton.SetActive(false);
+        //    joinFieldParent.SetActive(true);
+        //    host.SetActive(true);
+        //    join.SetActive(true);
+        //    back.SetActive(true);
+        //    if (isHost)
+        //    {
+        //        manager.StopHost();
+        //    }else if (!isHost)
+        //    {
+        //        manager.StopClient();
+        //    }
+        //}
+        //else
+        //{
             play.SetActive(true);
             creditsButton.SetActive(true);
             joinFieldParent.SetActive(false);
             host.SetActive(false);
             join.SetActive(false);
             back.SetActive(false);
-        }
+        //}
 
     }
     //Load Credits
