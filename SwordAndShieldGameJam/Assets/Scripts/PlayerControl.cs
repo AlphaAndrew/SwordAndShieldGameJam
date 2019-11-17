@@ -288,29 +288,29 @@ public class PlayerControl : NetworkBehaviour
             {
                 //playerRB.velocity = transform.right * playerSpeed;
                 player.transform.position += transform.right * playerSpeed;
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
             else if(Input.GetKey(KeyCode.A))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.right * playerSpeed;
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
             else if(Input.GetKey(KeyCode.W))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += transform.forward * playerSpeed;
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
             else if(Input.GetKey(KeyCode.S))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.forward * playerSpeed;
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
             else
             {
-                anim.SetBool("isWalking", false);
+                //anim.SetBool("isWalking", false);
             }           
         }
         //float x = Input.GetAxis("Mouse Y");
