@@ -42,6 +42,8 @@ public class PlayerControl : NetworkBehaviour
     public bool isBouncing = false;
     public float bounceMultiplier;
 
+    public Camera camera;
+
     //Coroutine accumulatePoints;
     //see capture point "Do Battle" 
 
@@ -50,26 +52,18 @@ public class PlayerControl : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-
-            // iterates through the children of the main gameobject, looking for player tag. ATM the body has the player tag, switching to a body tag might be needed
-            //foreach (Transform child in transform)
-            //{
-            //    if (child.tag == "Player")
-            //    {
-            //        playerRB = child.GetComponent<Rigidbody>();
-            //    }
-            //}
-
+            
             playerRB = GetComponent<Rigidbody>();
 
             player = this.gameObject;
             playerSpeed = playerBaseSpeed;
-
-
+            
 
 
             playerTeam = "Red";
+            return;
         }
+        camera.enabled = false;
     }
 
     // Update is called once per frame

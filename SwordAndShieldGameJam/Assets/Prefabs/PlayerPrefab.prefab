@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1406898134}
   - component: {fileID: 4359494327530355727}
   - component: {fileID: 874113937401791520}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sword
   m_TagString: Sword
   m_Icon: {fileID: 0}
@@ -137,6 +137,8 @@ GameObject:
   - component: {fileID: 1791730913853595364}
   - component: {fileID: 6215417713013560228}
   - component: {fileID: 1297903607004912512}
+  - component: {fileID: 5495207482989483746}
+  - component: {fileID: 8428218333841756239}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: PlayerObject
@@ -245,6 +247,7 @@ MonoBehaviour:
   hitSomeone: 0
   isBouncing: 0
   bounceMultiplier: 5
+  camera: {fileID: 9060121227453688276}
 --- !u!54 &1297903607004912512
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -261,6 +264,39 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &5495207482989483746
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205645550076790039}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.49, y: 2.04, z: 1.57}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8428218333841756239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205645550076790039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4fc1de7aae047a4bf138b9498c9b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 5277240568066947993}
+  m_ChildIndex: 0
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
 --- !u!1 &3382413834376245715
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +339,7 @@ GameObject:
   - component: {fileID: 6207332006686472110}
   - component: {fileID: 5788955521709460480}
   - component: {fileID: 4949417909500238497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield
   m_TagString: Shield
   m_Icon: {fileID: 0}
@@ -377,7 +413,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3551475204414576864}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5be51f0342dab2a459b964234e26d0b0, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -395,8 +431,7 @@ GameObject:
   - component: {fileID: 2074739282385020983}
   - component: {fileID: 4672181849366361413}
   - component: {fileID: 765876864726055808}
-  - component: {fileID: 2948722110648915751}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -476,22 +511,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2948722110648915751
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5115947971205376726}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 84
-  m_CollisionDetection: 0
 --- !u!1 &8072172193484585115
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +554,7 @@ GameObject:
   - component: {fileID: 2862219993986672994}
   m_Layer: 0
   m_Name: PlayerCam
-  m_TagString: Untagged
+  m_TagString: Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
