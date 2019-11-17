@@ -88,7 +88,14 @@ public class PlayerControl : NetworkBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            CmdVariableSync();
+            if (isServer)
+            {
+                VariableSync();
+            }
+            else
+            {
+                CmdVariableSync();
+            }           
             return;
         }
         camera.enabled = false;
@@ -108,9 +115,26 @@ public class PlayerControl : NetworkBehaviour
         //playerBody = GameObject.FindGameObjectWithTag("Player");
         playerTeam = "Red";
         shield.GetComponent<BoxCollider>().enabled = false;
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
         return;
     }
+    public void VariableSync()
+    {
+        rend = GetComponentInChildren<Renderer>();
+        if (playerTeam == "Red")
+        {
+            rend.material.color = Color.red;
+        }
+        playerRB = GetComponentInChildren<Rigidbody>();
 
+        player = this.gameObject;
+        playerSpeed = playerBaseSpeed;
+        //playerBody = GameObject.FindGameObjectWithTag("Player");
+        playerTeam = "Red";
+        shield.GetComponent<BoxCollider>().enabled = false;
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
+        return;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

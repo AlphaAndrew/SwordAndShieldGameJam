@@ -1799,7 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3bfc0104c6039b4faf3b3a6a22e846e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneOne: FightScene
+  sceneOne: Level1
   host: {fileID: 787608357}
   play: {fileID: 952848013}
   join: {fileID: 1022224164}
