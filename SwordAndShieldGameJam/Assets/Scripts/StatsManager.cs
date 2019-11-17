@@ -34,11 +34,9 @@ public class StatsManager : NetworkBehaviour
         updateIntervalTimer += Time.deltaTime;
         if (updateIntervalTimer > updateInterval)
         {
-            Debug.Log("Update");
             CheckForBattle();
-            //UpdateScoreText();
-            blueScoreText.text = "Blue Score: " + blueTeamScore;
-            redScoreText.text = "Red Score: " + redTeamScore;
+            UpdateScoreText();
+            
             updateIntervalTimer = 0;
         }
             
@@ -54,10 +52,8 @@ public class StatsManager : NetworkBehaviour
     }
     public void UpdateScoreText()
     {
-        Debug.Log("UpdateScore");
         blueScoreText.text = "Blue Score: "+ blueTeamScore;
         redScoreText.text = "Red Score: " + redTeamScore;
-
     }
 
     //get all active players
