@@ -12,7 +12,6 @@ public class SceneChanger : NetworkBehaviour
     public GameObject host;
     public GameObject play;
     public GameObject join;
-    public GameObject back;
     public GameObject creditsButton;
     public GameObject joinFieldParent;
     public InputField joinField;
@@ -30,10 +29,8 @@ public class SceneChanger : NetworkBehaviour
         joinFieldParent.SetActive(false);
         host.SetActive(false);
         join.SetActive(false);
-        back.SetActive(false);
         backGround1.SetActive(true);
         backGround2.SetActive(false);
-        back.SetActive(false);
         manager = network.GetComponent<NetworkLobbyManager>();
         joinField.text = "localhost";
     }
@@ -44,7 +41,6 @@ public class SceneChanger : NetworkBehaviour
         joinFieldParent.SetActive(true);
         host.SetActive(true);
         join.SetActive(true);
-        back.SetActive(true);
 
         backGround1.SetActive(false);
         backGround2.SetActive(true);
@@ -65,38 +61,6 @@ public class SceneChanger : NetworkBehaviour
         //ClientScene.AddPlayer(0);
         //SceneManager.LoadScene(sceneOne);
     }
-    public void Back()
-    {
-        //if (inLobby)
-        //{
-        //    play.SetActive(false);
-        //    creditsButton.SetActive(false);
-        //    joinFieldParent.SetActive(true);
-        //    host.SetActive(true);
-        //    join.SetActive(true);
-        //    back.SetActive(true);
-        //    if (isHost)
-        //    {
-        //        manager.StopHost();
-        //    }else if (!isHost)
-        //    {
-        //        manager.StopClient();
-        //    }
-        //}
-        //else
-        //{
-        play.SetActive(true);
-        creditsButton.SetActive(true);
-        joinFieldParent.SetActive(false);
-        host.SetActive(false);
-        join.SetActive(false);
-        back.SetActive(false);
-
-        backGround1.SetActive(true);
-        backGround2.SetActive(false);
-        //}
-
-    }
     //Load Credits
     public void Credits()
     {
@@ -115,7 +79,6 @@ public class SceneChanger : NetworkBehaviour
         joinFieldParent.SetActive(false);
         host.SetActive(false);
         join.SetActive(false);
-        back.SetActive(true);
         inLobby = true;
     }
     public void LobbyLeave()
