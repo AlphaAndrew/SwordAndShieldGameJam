@@ -31,11 +31,11 @@ public class Sword : MonoBehaviour
                     //check if regular or charged attack with bool
                     if (playerScript.isCharging)
                     {
-                        playerScript.ApplyDamage(chargedDamage);
+                        other.gameObject.GetComponentInParent<PlayerControl>().ApplyDamage(chargedDamage);
                     }
                     else //normal attack
                     {
-                        playerScript.ApplyDamage(normalDamage);
+                        other.gameObject.GetComponentInParent<PlayerControl>().ApplyDamage(normalDamage);
                     }
 
                     break;
@@ -45,6 +45,21 @@ public class Sword : MonoBehaviour
                     // check if regular or charged attack with bool
                     if (playerScript.isCharging)
                     {
+                        //player boucnes back
+                        playerScript.hitSomeone = true;
+                        //target bounces back
+                        other.gameObject.GetComponentInParent<PlayerControl>().isBouncing = true;
+                    }
+                    else //normal attack
+                    {
+                        //blocked, nothin happens?
+                    }
+                    break;
+                case "Obstacle":
+                    // check if regular or charged attack with bool
+                    if (playerScript.isCharging)
+                    {
+                     
                         playerScript.hitSomeone = true;
                     }
                     else //normal attack

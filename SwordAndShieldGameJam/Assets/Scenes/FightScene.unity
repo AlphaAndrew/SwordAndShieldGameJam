@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 691945919}
   m_Layer: 0
   m_Name: Cylinder (2)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2024,15 +2024,15 @@ PrefabInstance:
       propertyPath: addPointInterval
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1734021259, guid: 5fef408526e25f449911075bff95cf74, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4745768491976889865, guid: 5fef408526e25f449911075bff95cf74,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e41a8c6fb40620e4b8018d901626e597, type: 2}
+    - target: {fileID: 1734021259, guid: 5fef408526e25f449911075bff95cf74, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1734021259, guid: 5fef408526e25f449911075bff95cf74, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5fef408526e25f449911075bff95cf74, type: 3}
@@ -2179,7 +2179,7 @@ GameObject:
   - component: {fileID: 1775220145}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2352,7 +2352,7 @@ GameObject:
   - component: {fileID: 1852136545}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2570,7 +2570,7 @@ GameObject:
   - component: {fileID: 1993183315}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2662,7 +2662,7 @@ GameObject:
   - component: {fileID: 1995386423}
   m_Layer: 0
   m_Name: Cylinder (1)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2886,7 +2886,7 @@ GameObject:
   - component: {fileID: 2121948339}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

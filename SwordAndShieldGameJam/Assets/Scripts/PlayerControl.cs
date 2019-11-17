@@ -235,6 +235,7 @@ public class PlayerControl : NetworkBehaviour
             lerpDuration = 0;
         }
     }
+    
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
