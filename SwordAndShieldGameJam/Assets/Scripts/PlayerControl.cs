@@ -302,7 +302,7 @@ public class PlayerControl : NetworkBehaviour
 
     public void ApplyDamage(float damage)
     {
-        currentHealth -= damage;
+        //currentHealth -= damage;
     }
     /// <summary>
     /// Add points to the local player
