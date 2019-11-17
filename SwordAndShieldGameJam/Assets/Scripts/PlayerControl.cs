@@ -12,6 +12,7 @@ public class PlayerControl : NetworkBehaviour
     //Player
     private Rigidbody playerRB;
     private GameObject player;
+    public int playerNum = 0;
     public string playerTeam;
     public float playerScore;
     //Health
@@ -50,9 +51,19 @@ public class PlayerControl : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (playerNum == 0)
+        {
+            playerTeam = "Red";
+            playerNum++;
+        }
+        else if (playerNum == 1)
+        {
+            playerTeam = "Blue";
+            playerNum++;
+        }
+        
         if (isLocalPlayer)
         {
-            
             playerRB = GetComponent<Rigidbody>();
 
             player = this.gameObject;
