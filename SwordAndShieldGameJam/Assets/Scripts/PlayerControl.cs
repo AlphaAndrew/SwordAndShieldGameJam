@@ -167,8 +167,8 @@ public class PlayerControl : NetworkBehaviour
             cantMove = false;
             if (chargeTimer < chargeMinLimit) { return; }
             //sound
-            audioSource.clip = rocketSound;
-            audioSource.Play();
+            //audioSource.clip = rocketSound;
+            //audioSource.Play();
             //Attack
             ChargePrep();
             //isCharging = true;
