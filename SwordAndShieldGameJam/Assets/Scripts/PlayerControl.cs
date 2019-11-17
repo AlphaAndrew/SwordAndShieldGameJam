@@ -71,6 +71,7 @@ public class PlayerControl : NetworkBehaviour
     public GameObject canvas;
     public GameObject winImage;
     public GameObject loseImage;
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -113,7 +114,7 @@ public class PlayerControl : NetworkBehaviour
             rend.material.color = Color.red;
         }
         playerRB = GetComponentInChildren<Rigidbody>();
-
+        anim = this.gameObject.GetComponent<Animator>();
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
         //playerBody = GameObject.FindGameObjectWithTag("Player");
@@ -131,7 +132,7 @@ public class PlayerControl : NetworkBehaviour
             rend.material.color = Color.red;
         }
         playerRB = GetComponentInChildren<Rigidbody>();
-
+        anim = this.gameObject.GetComponent<Animator>();
         player = this.gameObject;
         playerSpeed = playerBaseSpeed;
         //playerBody = GameObject.FindGameObjectWithTag("Player");
@@ -287,22 +288,30 @@ public class PlayerControl : NetworkBehaviour
             {
                 //playerRB.velocity = transform.right * playerSpeed;
                 player.transform.position += transform.right * playerSpeed;
+                anim.SetBool("isWalking", true);
             }
-            if (Input.GetKey(KeyCode.A))
+            else if(Input.GetKey(KeyCode.A))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.right * playerSpeed;
+                anim.SetBool("isWalking", true);
             }
-            if (Input.GetKey(KeyCode.W))
+            else if(Input.GetKey(KeyCode.W))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += transform.forward * playerSpeed;
+                anim.SetBool("isWalking", true);
             }
-            if (Input.GetKey(KeyCode.S))
+            else if(Input.GetKey(KeyCode.S))
             {
                 //playerRB.velocity = -transform.right * playerSpeed;
                 player.transform.position += -transform.forward * playerSpeed;
+                anim.SetBool("isWalking", true);
             }
+            else
+            {
+                anim.SetBool("isWalking", false);
+            }           
         }
         //float x = Input.GetAxis("Mouse Y");
         float y = -Input.GetAxis("Mouse X");
