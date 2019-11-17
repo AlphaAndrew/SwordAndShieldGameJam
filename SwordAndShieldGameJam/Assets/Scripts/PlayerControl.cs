@@ -120,14 +120,15 @@ public class PlayerControl : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
         if (playerTeam == "Red")
         {
             rend.material.color = Color.red;
         }
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         if (currentHealth <= 0)
         {
             StartCoroutine("Death");
