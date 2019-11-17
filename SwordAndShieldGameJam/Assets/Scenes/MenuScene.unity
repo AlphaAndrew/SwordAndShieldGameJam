@@ -229,7 +229,7 @@ MonoBehaviour:
   m_GamePlayerPrefab: {fileID: 1205645550076790039, guid: 8b331d8ec5b75d349b2f8c8844876d10,
     type: 3}
   m_LobbyScene: MenuScene
-  m_PlayScene: FightScene
+  m_PlayScene: Level1
   lobbySlots: []
   cam: {fileID: 1856039977}
   lobby: {fileID: 183780905}

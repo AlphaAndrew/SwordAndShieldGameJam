@@ -103,6 +103,7 @@ public class PlayerControl : NetworkBehaviour
     [Command]
     public void CmdVariableSync()
     {
+        currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
         if (playerTeam == "Red")
         {
@@ -120,6 +121,7 @@ public class PlayerControl : NetworkBehaviour
     }
     public void VariableSync()
     {
+        currentHealth = health;
         rend = GetComponentInChildren<Renderer>();
         if (playerTeam == "Red")
         {
