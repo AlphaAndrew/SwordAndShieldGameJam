@@ -62,7 +62,7 @@ public class PlayerControl : NetworkBehaviour
     public bool isBouncing = false;
     public float bounceMultiplier;
     public Camera camera;
-    private Renderer rend;
+    public Renderer rend;
     public bool cantMove;
     public GameObject[] spawnPoints;
     public float deathTime;

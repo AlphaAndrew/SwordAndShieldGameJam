@@ -222,7 +222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBody: {fileID: 5115947971205376726}
-  playerNum: 0
   playerTeam: 
   playerScore: 0
   health: 10
@@ -240,6 +239,7 @@ MonoBehaviour:
   isBouncing: 0
   bounceMultiplier: 5
   camera: {fileID: 9060121227453688276}
+  rend: {fileID: 4672181849366361413}
   cantMove: 0
   spawnPoints: []
   deathTime: 3
@@ -853,6 +853,8 @@ MonoBehaviour:
   players: []
   activeBattle: 0
   finalScore: 100
+  playerNum: 0
+  team: 
 --- !u!1 &5115947971205376726
 GameObject:
   m_ObjectHideFlags: 0
