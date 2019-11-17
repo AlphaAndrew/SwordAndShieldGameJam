@@ -159,6 +159,9 @@ public class PlayerControl : NetworkBehaviour
         {
             cantMove = false;
             if (chargeTimer < chargeMinLimit) { return; }
+            //sound
+            audioSource.clip = rocketSound;
+            audioSource.Play();
             //Attack
             ChargePrep();
             //isCharging = true;
@@ -212,8 +215,7 @@ public class PlayerControl : NetworkBehaviour
     //Charge Attack Implementation
     public void ChargeAttack()
     {
-       // audioSource.clip = rocketSound;
-       // audioSource.Play();
+      
         //Attack
         if (lerpDuration < 1 && !hitSomeone)
         {
@@ -261,12 +263,13 @@ public class PlayerControl : NetworkBehaviour
     }
     IEnumerator FootstepSounds()
     {
-        yield return new WaitForEndOfFrame();
+       
         if (isWalking)
         {
+            isFootStepsPlaying = true;
             audioSource.clip = footSteps;
             audioSource.Play();
-            isFootStepsPlaying = true;
+           
             yield return new WaitForSeconds(2f);
             isFootStepsPlaying = false;
 
@@ -302,7 +305,8 @@ public class PlayerControl : NetworkBehaviour
                 player.transform.position += transform.right * playerSpeed;
                 anim.SetBool("isWalking", true);
             }
-            if(Input.GetKey(KeyCode.A))
+
+            if (Input.GetKey(KeyCode.A))
             {
                 isWalking = true;
                 if (!isFootStepsPlaying)
@@ -340,12 +344,15 @@ public class PlayerControl : NetworkBehaviour
             }
             if(!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
             {
+                anim.SetBool("isWalking", false);
+            }
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+            {
                 StopCoroutine(FootstepSounds());
-                audioSource.clip = null;
                 isWalking = false;
                 isFootStepsPlaying = false;
-                anim.SetBool("isWalking", false);
-            }         
+                audioSource.clip = null;
+            }
         }
         //float x = Input.GetAxis("Mouse Y");
         float y = -Input.GetAxis("Mouse X");

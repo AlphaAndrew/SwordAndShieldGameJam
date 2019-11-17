@@ -54,8 +54,6 @@ public class StatsManager : NetworkBehaviour
                 RpcEndGame();
             }
         }
-            
-        
     }
 
     public void AddBluePoints(float value)
