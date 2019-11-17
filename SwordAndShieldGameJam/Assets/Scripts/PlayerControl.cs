@@ -69,7 +69,7 @@ public class PlayerControl : NetworkBehaviour
     public GameObject canvas;
     public GameObject winImage;
     public GameObject loseImage;
-    private Animator anim;
+    public Animator anim;
 
     public Coroutine footstepSounds;
     private AudioSource audioSource;
