@@ -224,7 +224,6 @@ MonoBehaviour:
   playerBody: {fileID: 5115947971205376726}
   playerTeam: 
   playerScore: 0
-  health: 10
   playerBaseSpeed: 0.2
   playerShieldSpeed: 0.05
   shield: {fileID: 355950269486843634}
@@ -246,6 +245,9 @@ MonoBehaviour:
   canvas: {fileID: 4460774757147257971}
   winImage: {fileID: 2967881475539741268}
   loseImage: {fileID: 5644665003108513690}
+  footSteps: {fileID: 8300000, guid: d10d9eeb9fe195e4cb16f4da7d48f82c, type: 3}
+  rocketSound: {fileID: 8300000, guid: 6a40afea70fef354d94ed2562ab6c134, type: 3}
+  isWalking: 0
 --- !u!65 &5495207482989483746
 BoxCollider:
   m_ObjectHideFlags: 0
