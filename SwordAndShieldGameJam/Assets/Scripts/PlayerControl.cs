@@ -75,12 +75,14 @@ public class PlayerControl : NetworkBehaviour
     public GameObject loseImage;
     public Animator anim;
 
+    // Sound variables
     public Coroutine footstepSounds;
     private AudioSource audioSource;
     public AudioClip footSteps;
     public AudioClip rocketSound;
     public bool isWalking;
     private bool isFootStepsPlaying;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -129,6 +131,7 @@ public class PlayerControl : NetworkBehaviour
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPos");
         return;
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -149,7 +152,7 @@ public class PlayerControl : NetworkBehaviour
         //    StartCoroutine("Death");
         //}
 
-        MovementControls();
+        MovementControlsPhysics();
 
         //Normal Attack
         //Charge Attack
@@ -170,14 +173,14 @@ public class PlayerControl : NetworkBehaviour
             //audioSource.clip = rocketSound;
             //audioSource.Play();
             //Attack
-            ChargePrep();
-            //isCharging = true;
-            //playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
+            //ChargePrep();
+            isCharging = true;
+            playerRB.AddRelativeForce(Vector3.forward *(chargeMultiplier*chargeTimer), ForceMode.Impulse);
             chargeTimer = 0;
         }
         if (isCharging)
         {
-            ChargeAttack();
+            //ChargeAttack();
             
         }
             
@@ -290,19 +293,71 @@ public class PlayerControl : NetworkBehaviour
 
     }
 
-    public void MovementControls()
+    /// <summary>
+    /// Handles input and movement using physics
+    /// </summary>
+    public void MovementControlsPhysics()
     {
         Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        //if (m_Input.sqrMagnitude > 1)
-        //{
-        //    m_Input.Normalize();
-        //}
+        // moves the camera as the mouse moves
+        float y = -Input.GetAxis("Mouse X");
+        player.transform.Rotate(0, -y, 0);
 
-        //if (playerRB.velocity.magnitude < 10f)
-        //{
-        //    playerRB.AddRelativeForce(m_Input * playerSpeed, ForceMode.VelocityChange);
-        //}
+        // When the player veloctity is within moveable range, ends charge
+        if (playerRB.velocity.magnitude <= 11f)
+        {
+            if (isCharging)
+            {
+                anim.SetBool("chargeAnimBool", false);
+                isCharging = false;
+            }
+        }
+
+        if (!cantMove)
+        {
+            // triggers all this other stuff when there is input
+            if (m_Input.sqrMagnitude > 1)
+            {
+                // make sure that you cannot move faster than max speed by holding down two directions
+                m_Input.Normalize();
+
+                // checks to see if movement is faster than maximum speed
+                if (playerRB.velocity.magnitude < 10f)
+                {
+                    playerRB.AddRelativeForce(m_Input, ForceMode.VelocityChange);
+                }
+
+                // sound and animations triggered here. 
+                if (!isCharging)
+                {
+                    isWalking = true;
+                    if (!isFootStepsPlaying)
+                    {
+                        footstepSounds = StartCoroutine(FootstepSounds());
+                    }
+                    anim.SetBool("isWalking", true);
+                }
+            }
+
+            // if moving slower than threshold, goes back to idle animation
+            else if (playerRB.velocity.magnitude <= 0.25f)
+            {
+                anim.SetBool("isWalking", false);
+            }
+
+            
+        }
+        
+    }
+
+    /// <summary>
+    /// Handles input and movement using transform
+    /// good for moving through walls
+    /// </summary>
+    public void MovementControlsTransform()
+    {
+
         if (!cantMove)
         {
             if (Input.GetKey(KeyCode.D))
@@ -330,7 +385,7 @@ public class PlayerControl : NetworkBehaviour
                 player.transform.position += -transform.right * playerSpeed;
                 anim.SetBool("isWalking", true);
             }
-            if(Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 isWalking = true;
                 if (!isFootStepsPlaying)
@@ -342,7 +397,7 @@ public class PlayerControl : NetworkBehaviour
                 player.transform.position += transform.forward * playerSpeed;
                 anim.SetBool("isWalking", true);
             }
-            if(Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
             {
                 isWalking = true;
                 if (!isFootStepsPlaying)
@@ -354,7 +409,7 @@ public class PlayerControl : NetworkBehaviour
                 player.transform.position += -transform.forward * playerSpeed;
                 anim.SetBool("isWalking", true);
             }
-            if(!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
             {
                 anim.SetBool("isWalking", false);
             }
@@ -366,16 +421,32 @@ public class PlayerControl : NetworkBehaviour
                 audioSource.clip = null;
             }
         }
-        //float x = Input.GetAxis("Mouse Y");
+        float x = Input.GetAxis("Mouse Y");
+
+        // moves the camera as the mouse moves
         float y = -Input.GetAxis("Mouse X");
         player.transform.Rotate(0, -y, 0);
-        //Camera.main.transform.Rotate(-x, 0, 0);
     }
 
+    /// <summary>
+    /// Called by other functions to apply a force
+    /// </summary>
+    /// <param name="direction">Vector3 for direction to apply the force in, relative to local</param>
+    /// <param name="strength">forcce multiplier</param>
+    public void ApplyForce(Vector3 direction, float strength)
+    {
+        playerRB.AddRelativeForce(direction * strength, ForceMode.Impulse);
+    }
+
+    /// <summary>
+    /// Called by other fucntions to apply damage to the player
+    /// </summary>
+    /// <param name="damage">damage to be dealt</param>
     public void ApplyDamage(float damage)
     {
         //currentHealth -= damage;
     }
+
     /// <summary>
     /// Add points to the local player
     /// </summary>
@@ -384,6 +455,7 @@ public class PlayerControl : NetworkBehaviour
     {
         playerScore += value;
     }
+
     //public IEnumerator Death()
     //{
     //    cantMove = true;

@@ -8,6 +8,7 @@ public class Sword : MonoBehaviour
     PlayerControl playerScript;
     public float normalDamage;
     public float chargedDamage;
+    public float bounceMultiplier;
 
     private void Start()
     {
@@ -48,7 +49,8 @@ public class Sword : MonoBehaviour
                         //player boucnes back
                         playerScript.hitSomeone = true;
                         //target bounces back
-                        other.gameObject.GetComponentInParent<PlayerControl>().BouncePrep();
+                        //other.gameObject.GetComponentInParent<PlayerControl>().BouncePrep();
+                        other.gameObject.GetComponentInParent<PlayerControl>().ApplyForce(Vector3.back, bounceMultiplier);
                     }
                     else //normal attack
                     {
