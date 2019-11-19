@@ -321,7 +321,10 @@ public class PlayerControl : NetworkBehaviour
             {
                 // make sure that you cannot move faster than max speed by holding down two directions
                 m_Input.Normalize();
-
+                
+            }
+            if (m_Input.sqrMagnitude > 0)
+            {
                 // checks to see if movement is faster than maximum speed
                 if (playerRB.velocity.magnitude < 10f)
                 {
@@ -339,6 +342,7 @@ public class PlayerControl : NetworkBehaviour
                     anim.SetBool("isWalking", true);
                 }
             }
+            
 
             // if moving slower than threshold, goes back to idle animation
             else if (playerRB.velocity.magnitude <= 0.25f)
